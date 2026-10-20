@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#176b57">
+  <meta name="description" content="MIVG Global Marketplace — Everything You Need, All in One Place. Discover fashion, electronics, books, accessories and everyday essentials.">
+  <title>MIVG Global Marketplace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="announcement">Welcome to MIVG Global Marketplace <span>— Everything You Need, All in One Place.</span></div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="MIVG home"><span class="brand-mark">M</span><span><strong>MIVG</strong><small>GLOBAL MARKETPLACE</small></span></a>
+    <form class="search" id="search-form"><input id="search-input" type="search" placeholder="Search phones, fashion, laptops and more..." aria-label="Search products"><button type="submit">Search</button></form>
+    <button class="cart-button" id="cart-open" type="button">🛒 Cart <span id="cart-count">0</span></button>
+  </header>
+  <nav class="category-nav" aria-label="Product categories">
+    <button class="category active" data-category="All">All products</button>
+    <button class="category" data-category="Electronics">Electronics</button>
+    <button class="category" data-category="Fashion">Fashion</button>
+    <button class="category" data-category="Shoes">Shoes & slippers</button>
+    <button class="category" data-category="Accessories">Accessories</button>
+    <button class="category" data-category="Home">Home & everyday</button>
+    <button class="category" data-category="Books">Books</button>
+  </nav>
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><p class="eyebrow">YOUR EVERYDAY MARKETPLACE</p><h1>Find what you love.<br><em>Shop it all here.</em></h1><p>From gadgets and fashion to home essentials, discover more of what you need in one place.</p><a class="primary-button" href="#products">Explore products <span>→</span></a><div class="hero-note">A marketplace for everyday discoveries.</div></div>
+      <div class="hero-art" aria-label="Marketplace categories illustration"><div class="art-circle"></div><div class="art-card card-one"><span>🎧</span><small>TECH</small></div><div class="art-card card-two"><span>👟</span><small>STYLE</small></div><div class="art-card card-three"><span>🎒</span><small>DAILY ESSENTIALS</small></div><div class="art-center"><span>✦</span><strong>MIVG</strong><small>SHOP YOUR WAY</small></div></div>
+    </section>
+    <section class="trust-row"><div><span>✓</span><p><strong>Choice for everyone</strong><small>Explore a range of categories</small></p></div><div><span>⌕</span><p><strong>Easy discovery</strong><small>Search for what you need</small></p></div><div><span>♡</span><p><strong>Made for everyday</strong><small>Useful finds in one place</small></p></div></section>
+    <section class="section-heading" id="products"><div><p class="eyebrow">EXPLORE THE MARKETPLACE</p><h2>Products to discover</h2><p class="muted">Browse our starter collection. Product prices and availability will be confirmed as the catalogue is populated.</p></div><label class="sort-label">Sort by <select id="sort-select"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></label></section>
+    <div class="active-filter" id="active-filter">Showing all categories</div>
+    <section class="product-grid" id="product-grid" aria-live="polite"></section>
+    <section class="seller-banner"><div><p class="eyebrow">GROW WITH MIVG</p><h2>Have products to sell?</h2><p>We're building a marketplace where customers can discover products from different sellers.</p></div><button type="button" id="seller-interest">I'm interested in selling <span>→</span></button></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">M</span><span><strong>MIVG</strong><small>GLOBAL MARKETPLACE</small></span></a><p>Everything You Need, All in One Place.</p><small>© <span id="year"></span> MIVG Global Marketplace. Product listings are starter examples.</small></footer>
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Your cart</h2></div><button id="cart-close" class="close-button" aria-label="Close cart">×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-bottom"><div class="total-line"><span>Subtotal</span><strong id="cart-total">₦0</strong></div><p class="muted">Checkout and payment will be enabled after secure order setup.</p><button id="checkout-button" class="primary-button full-width">Continue</button></div></aside>
+  <div class="modal" id="notice-modal" role="dialog" aria-modal="true" aria-labelledby="notice-title"><button class="close-button modal-close" id="notice-close" aria-label="Close">×</button><p class="eyebrow">MIVG GLOBAL MARKETPLACE</p><h2 id="notice-title">We're getting things ready</h2><p id="notice-message">This feature will be available as the marketplace setup is completed.</p><button class="primary-button full-width" id="notice-ok">Okay</button></div>
+  <script src="app.js"></script>
+</body>
+</html>
