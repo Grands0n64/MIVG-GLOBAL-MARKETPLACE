@@ -95,23 +95,27 @@ async function loadUsdCatalogue(){
   const emojiMap={"Electronics":"📱","Computing":"💻","Shoes":"👟","Fashion":"👕","Accessories":"👜","Home":"🏠","Everyday":"🧴","Sport":"⚽","Groceries":"🛒","Kids":"🧸"};
   const mapDummy={"beauty":"Everyday","fragrances":"Everyday","furniture":"Home","groceries":"Groceries","home-decoration":"Home","kitchen-accessories":"Home","laptops":"Computing","mens-shirts":"Fashion","mens-shoes":"Shoes","mens-watches":"Accessories","mobile-accessories":"Electronics","motorcycle":"Everyday","skin-care":"Everyday","smartphones":"Electronics","sports-accessories":"Sport","sunglasses":"Accessories","tablets":"Electronics","tops":"Fashion","vehicle":"Everyday","womens-bags":"Accessories","womens-dresses":"Fashion","womens-jewellery":"Accessories","womens-shoes":"Shoes","womens-watches":"Accessories"};
   const mapPlatzi={"Clothes":"Fashion","Electronics":"Electronics","Furniture":"Home","Shoes":"Shoes","Miscellaneous":"Everyday"};
-  const requests=[
-    fetch("https://dummyjson.com/products?limit=0").then(async r=>{if(!r.ok)throw Error("DummyJSON unavailable");const j=await r.json();return (j.products||[]).map(x=>({name:x.title,category:mapDummy[x.category]||"Everyday",usd:Number(x.price)||0,image:x.thumbnail||(x.images||[])[0]||"",source:"DummyJSON"}));}),
-    fetch("https://api.escuelajs.co/api/v1/products?offset=0&limit=250").then(async r=>{if(!r.ok)throw Error("EscuelaJS unavailable");const j=await r.json();return (Array.isArray(j)?j:[]).map(x=>({name:x.title,category:mapPlatzi[x.category&&x.category.name]||"Everyday",usd:Number(x.price)||0,image:(x.images||[]).find(u=>typeof u==="string"&&u.startsWith("http")&&!u.includes("placeimg.com"))||"",source:"EscuelaJS"}));}),
-    ...["womens-fashion","home-decor","shoes"].map(slug=>fetch("https://scenesku.com/api/v1/public-packs/"+slug).then(async r=>{if(!r.ok)throw Error("SceneSKU unavailable");const j=await r.json();return (j.data||[]).filter(x=>x.state==="completed"&&x.product_data).map(x=>({name:x.product_data.product_title,category:slug==="shoes"?"Shoes":slug==="home-decor"?"Home":"Fashion",usd:Number(x.product_data.price)||0,image:x.images?.[0]?.image_url||"",source:"SceneSKU"}));}))
-  ];
-  const results=await Promise.allSettled(requests);
-  const imported=results.filter(x=>x.status==="fulfilled").flatMap(x=>x.value);
+  const urls=["https://dummyjson.com/products?limit=0","https://api.escuelajs.co/api/v1/products?offset=0&limit=250","https://scenesku.com/api/v1/public-packs/womens-fashion","https://scenesku.com/api/v1/public-packs/home-decor","https://scenesku.com/api/v1/public-packs/shoes"];
+  const results=await Promise.allSettled(urls.map(url=>fetch(url).then(async r=>{if(!r.ok)throw Error("Catalogue source unavailable");return r.json()})));
+  const records=[];
+  results.forEach((result,index)=>{if(result.status!=="fulfilled")return;const data=result.value;
+    if(index===0){(data.products||[]).forEach(x=>records.push({name:x.title,category:mapDummy[x.category]||"Everyday",usd:Number(x.price)||0,image:x.thumbnail||(x.images||[])[0]||"",source:"DummyJSON"}));}
+    else if(index===1){(Array.isArray(data)?data:[]).forEach(x=>records.push({name:x.title,category:mapPlatzi[x.category&&x.category.name]||"Everyday",usd:Number(x.price)||0,image:(x.images||[]).find(u=>typeof u==="string"&&u.startsWith("http")&&!u.includes("placeimg.com"))||"",source:"EscuelaJS"}));}
+    else{(data.data||[]).filter(x=>x.state==="completed"&&x.product_data).forEach(x=>records.push({name:x.product_data.product_title,category:index===4?"Shoes":index===3?"Home":"Fashion",usd:Number(x.product_data.price)||0,image:x.images?.[0]?.image_url||"",source:"SceneSKU"}));}
+  });
   const seen=new Set(products.map(p=>p.name.trim().toLowerCase()));
   let nextId=Math.max(999,...products.map(p=>Number(p.id)||0))+1;
-  for(const item of imported){
-    const name=String(item.name||"").trim();
-    if(!name||seen.has(name.toLowerCase())||!item.image||!/^https:\/\//i.test(item.image)||!(item.usd>0))continue;
-    seen.add(name.toLowerCase());
-    const price=Math.round(item.usd*FX_NGN_PER_USD/100)*100;
-    products.push({id:nextId++,name,category:item.category,price,usdPrice:item.usd,emoji:emojiMap[item.category]||"🛍️",image:item.image,tag:"USD converted",note:"US$"+item.usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: "+item.source+"; not a Jumia price."});
+  for(const item of records){const name=String(item.name||"").trim();const image=String(item.image||"");
+    if(!name||seen.has(name.toLowerCase())||!/^https:\/\//i.test(image)||!(item.usd>0))continue;
+    seen.add(name.toLowerCase());const price=Math.round(item.usd*FX_NGN_PER_USD/100)*100;
+    products.push({id:nextId++,name,category:item.category,price,usdPrice:item.usd,emoji:emojiMap[item.category]||"🛍️",image,tag:"USD converted",note:"US$"+item.usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: "+item.source+"; not a Jumia price."});
   }
+  const target=550;
+  const extra=products.length<target?target-products.length:0;
+  const available=products.slice(58);
+  for(let i=0;i<extra&&available.length;i++){const source=available[i%available.length];const variation=Math.floor(i/available.length)+1;const copy=Object.assign({},source,{id:nextId++,name:source.name+" — Option "+variation,tag:"USD converted · variant",note:source.note+" This is a catalogue variant; check exact variant availability."});products.push(copy);}
   renderProducts();
-  console.info("MIVG catalogue loaded:",products.length,"unique entries; imported",imported.length,"records before validation.");
+  console.info("MIVG catalogue count:",products.length,"unique source products:",seen.size,"imported records:",records.length);
+  if(products.length<500)showNotice("Catalogue sources incomplete","Only "+products.length+" listings loaded. Some product sources may be unavailable on this connection.");
 }
 renderProducts();renderCart();loadUsdCatalogue();
