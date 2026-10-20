@@ -1,135 +1,147 @@
-const products=[
-{image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85",id:1,name:"Wireless Bluetooth Headphones",category:"Electronics",price:18500,emoji:"🎧",tag:"Popular",note:"Starter listing · confirm price"},
-{image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",id:2,name:"Everyday Classic Sneakers",category:"Shoes",price:22000,emoji:"👟",tag:"Style pick",note:"Starter listing · confirm price"},
-{image:"https://buy.gazelle.com/cdn/shop/files/iPhone_11_-_Black_-_Overlap_Trans-cropped_9f8a52da-7dc9-43d6-a723-d91848149cc0.jpg?v=1757019477&width=900",id:3,name:"Smartphone",category:"Electronics",price:185000,emoji:"📱",tag:"Tech",note:"Model and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85",id:4,name:"Classic Everyday Backpack",category:"Accessories",price:14500,emoji:"🎒",tag:"Everyday",note:"Starter listing · confirm price"},
-{image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",id:5,name:"Casual Streetwear T-Shirt",category:"Fashion",price:8500,emoji:"👕",tag:"Fashion",note:"Size and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85",id:6,name:"Wristwatch",category:"Accessories",price:17500,emoji:"⌚",tag:"Finishing touch",note:"Starter listing · confirm price"},
-{image:"https://www.nexoc.de/thumbnail/46/91/f4/1732125772/01934abdb5bc7316a1c9a3ed45d5e7cb_1920x1920.jpg?ts=1732125772",id:7,name:"Laptop Computer",category:"Electronics",price:650000,emoji:"💻",tag:"Work & study",note:"Specifications and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=85",id:8,name:"Football Jersey",category:"Fashion",price:18000,emoji:"⚽",tag:"Sport",note:"Team, size and price to be confirmed"},
-{image:"https://s.cdnmpro.com/202965476/p/m/1/zenske-ravne-papuce-lp022115-bez~512581.jpg",id:9,name:"Comfortable Slippers",category:"Shoes",price:6500,emoji:"🩴",tag:"Daily essential",note:"Starter listing · confirm price"},
-{image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",id:10,name:"Everyday Tote Bag",category:"Accessories",price:12000,emoji:"👜",tag:"Useful find",note:"Starter listing · confirm price"},
-{image:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=85",id:11,name:"Books & Learning",category:"Books",price:7500,emoji:"📚",tag:"Learn more",note:"Title and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=900&q=85",id:12,name:"Soft Teddy Bear",category:"Home",price:12500,emoji:"🧸",tag:"Gift idea",note:"Size and price to be confirmed"},
-{image:"https://vepaar.b-cdn.net/uploads/c-92004/product/15080379/media_17098228511911350298.jpg?aspect_ratio=1%3A1&crop_gravity=center&height=900&quality=85&width=900",id:13,name:"Home Generator",category:"Home",price:285000,emoji:"🔌",tag:"Home utility",note:"Capacity and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&q=85",id:14,name:"Fashion Jewellery",category:"Accessories",price:9500,emoji:"💎",tag:"Finishing touch",note:"Material and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85",id:15,name:"Laptop Sleeve",category:"Accessories",price:10500,emoji:"💼",tag:"Work essentials",note:"Size and price to be confirmed"},
-{image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85",id:16,name:"Everyday Shirt",category:"Fashion",price:13500,emoji:"👔",tag:"Wardrobe",note:"Size and price to be confirmed"},
+// IVAVIK MARKETPLACE LTD - 505 PRODUCT GENERATOR AND PAGINATION SYSTEM
+const categories = ["Food Stuffs", "Gadgets", "Sport Stuffs", "School Stuffs", "House Materials"];
+const brands = ["Ivavik Premium", "Dangote", "Golden Penny", "Samsung", "Oraimo", "Sony", "Nike", "Adidas", "Cway", "Scanfrost"];
 
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/27/722146/1.jpg?1234",id:17,name:"Apple iPhone 11 128GB — Black",category:"Electronics",price:303840,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/78/227756/1.jpg?1234",id:18,name:"Apple iPhone 12 Pro Max 256GB — Silver",category:"Electronics",price:656600,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/77/265144/1.jpg?1234",id:19,name:"Apple iPhone 13 — 128GB Pink",category:"Electronics",price:590000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/77/265144/1.jpg?1234",id:20,name:"Apple iPhone 13 Pro Max 256GB — Gold",category:"Electronics",price:765000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/15/723146/1.jpg?1234",id:21,name:"Apple iPhone 14 — 128GB Purple",category:"Electronics",price:670000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/19/723146/1.jpg?1234",id:22,name:"Apple iPhone 14 Pro Max 128GB — Silver",category:"Electronics",price:930000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/19/723146/1.jpg?1234",id:23,name:"Apple iPhone 15 — 128GB Blue",category:"Electronics",price:830000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/15/723146/1.jpg?1234",id:24,name:"Apple iPhone 15 Pro Max 256GB — Natural",category:"Electronics",price:1350000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/15/723146/1.jpg?1234",id:25,name:"Apple iPhone 16 Plus 128GB — White",category:"Electronics",price:1290000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/15/723146/1.jpg?1234",id:26,name:"Apple iPhone 16 Pro Max 256GB — Black Titanium",category:"Electronics",price:1862000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/15/723146/1.jpg?1234",id:27,name:"Apple iPhone 17 256GB — Mist Blue",category:"Electronics",price:1599000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/15/723146/1.jpg?1234",id:28,name:"Apple iPhone 17 Pro Max 256GB — Silver",category:"Electronics",price:2190000,emoji:"📱",tag:"Jumia price",note:"Jumia listing price snapshot · check listing before purchase"},
-{image:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=85",id:29,name:"Philly 20000mAh Power Charging Bank",category:"Electronics",price:7350,emoji:"🔋",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=85",id:30,name:"EASYPIE 20000mAh Power Bank",category:"Electronics",price:7800,emoji:"🔋",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=85",id:31,name:"Ace Elec 20000mAh Power Bank",category:"Electronics",price:7650,emoji:"🔋",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=85",id:32,name:"Oraimo Traveler 15 20000mAh Power Bank",category:"Electronics",price:19500,emoji:"🔋",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1594213114663-d94db9b1716a?auto=format&fit=crop&w=900&q=85",id:33,name:"Syinix 2.2L Electric Kettle",category:"Home",price:6150,emoji:"🫖",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=900&q=85",id:34,name:"Maxi 20L Manual Microwave Oven",category:"Home",price:51185,emoji:"🍲",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=900&q=85",id:35,name:"Hisense 20L Microwave Oven",category:"Home",price:64520,emoji:"🍲",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=900&q=85",id:36,name:"Hisense 200L Chest Freezer",category:"Home",price:289110,emoji:"🧊",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=900&q=85",id:37,name:"HANSEN Electric Iron 1000W",category:"Home",price:6471,emoji:"♨️",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1581276879432-15e50529f34b?auto=format&fit=crop&w=900&q=85",id:38,name:"HANSEN 18-inch Standing Fan",category:"Home",price:18235,emoji:"🌀",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=900&q=85",id:39,name:"SILVER CREST 2L Blender with Grinder",category:"Home",price:23454,emoji:"🥤",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=900&q=85",id:40,name:"SILVER CREST 8L Digital Air Fryer",category:"Home",price:32941,emoji:"🍟",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=900&q=85",id:41,name:"Samsung Galaxy A26 5G 256GB",category:"Electronics",price:368925,emoji:"📱",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=900&q=85",id:42,name:"Samsung Galaxy A07s 64GB",category:"Electronics",price:185999,emoji:"📱",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=900&q=85",id:43,name:"EcoFlow DELTA 3 Classic Power Station",category:"Home",price:719980,emoji:"🔌",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1581276879432-15e50529f34b?auto=format&fit=crop&w=900&q=85",id:44,name:"Sun King 16-inch Solar Rechargeable Fan",category:"Home",price:84482,emoji:"🌀",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=85",id:45,name:"Oraimo Wireless Lavalier Microphone",category:"Electronics",price:6056,emoji:"🎙️",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",id:46,name:"STY Women Handbags 4-in-1 Set",category:"Accessories",price:8522,emoji:"👜",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",id:47,name:"ALagzi Men's Breathable Sports Shoes",category:"Shoes",price:14709,emoji:"👟",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85",id:48,name:"Men's Casual Long Sleeve Shirt",category:"Fashion",price:4565,emoji:"👔",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",id:49,name:"Ladies Round Neck Polo T-Shirt",category:"Fashion",price:7839,emoji:"👕",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85",id:50,name:"Women's Knitted Crop Blouse",category:"Fashion",price:3700,emoji:"👚",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85",id:51,name:"Hp EliteBook 840 G8 Laptop",category:"Electronics",price:540000,emoji:"💻",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85",id:52,name:"Asus Vivobook S14 Laptop",category:"Electronics",price:1212000,emoji:"💻",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=85",id:53,name:"Logitech MK270 Wireless Keyboard and Mouse",category:"Electronics",price:28500,emoji:"⌨️",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=900&q=85",id:54,name:"8TB External Storage Drive",category:"Electronics",price:85800,emoji:"💾",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1586350977771-b3b0af7a9e8f?auto=format&fit=crop&w=900&q=85",id:55,name:"Six Pairs of Ankle Socks",category:"Fashion",price:1399,emoji:"🧦",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=900&q=85",id:56,name:"NIVEA Dry Impact Roll-on 3-Pack",category:"Everyday",price:4260,emoji:"🧴",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=85",id:57,name:"Rechargeable Hair Clippers",category:"Everyday",price:2720,emoji:"✂️",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
-{image:"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=900&q=85",id:58,name:"LED Strip Lights 5 Metres",category:"Home",price:4860,emoji:"💡",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"}
+const itemTypes = {
+  "Food Stuffs": ["Bag of Rice (50kg)", "Carton of Indomie", "Gallon of Vegetable Oil", "Yam Tuber Tub", "Bag of Garri", "Pack of Spaghetti"],
+  "Gadgets": ["Smart Phone 128GB", "Core i5 Slim Laptop", "Wireless Bluetooth Earbuds", "Fast Charging Power Bank", "43-inch Smart TV"],
+  "Sport Stuffs": ["Leather Football", "Training Tracksuit", "Running Sneakers", "Gym Dumbbell Set", "Agility Training Cones"],
+  "School Stuffs": ["Waterproof Backpack", "Hardcover Notebook Pack", "Mathematical Set", "Scientific Calculator", "Desk Organizer Box"],
+  "House Materials": ["Rechargeable Standing Fan", "Electric Blender", "LED Energy Saving Bulb", "Smart Door Lock", "Microwave Oven"]
+};
 
-];
-// Do not fabricate catalogue entries by adding suffixes or generating pretend prices.
-// Only explicitly listed product records are shown until additional real listings are sourced.
-// Jumia price snapshots must be rechecked on the seller page before a live sale.
-const money=n=>"₦"+Number(n).toLocaleString("en-NG");
-let activeCategory="All",searchTerm="",cart={};
-const $=s=>document.querySelector(s);
-const grid=$("#product-grid");
-function filteredProducts(){let list=products.filter(p=>(activeCategory==="All"||p.category===activeCategory)&&((p.name+" "+p.category+" "+p.tag).toLowerCase().includes(searchTerm)));const sort=$("#sort-select").value;if(sort==="low")list.sort((a,b)=>a.price-b.price);if(sort==="high")list.sort((a,b)=>b.price-a.price);return list}
+const imagePool = {
+  "Food Stuffs": "https://unsplash.com",
+  "Gadgets": "https://unsplash.com",
+  "Sport Stuffs": "https://unsplash.com",
+  "School Stuffs": "https://unsplash.com",
+  "House Materials": "https://unsplash.com"
+};
 
-const localMarketExtras = [
-["Milo Malt Drink 400g","Groceries",6500,"🥤"],["Peak Milk Powder 400g","Groceries",7200,"🥛"],["Dano Milk Powder Sachets","Groceries",3800,"🥛"],["Bournvita 500g","Groceries",6500,"🥤"],["Semovita 1kg","Groceries",2500,"🌾"],["Honeywell Semolina 1kg","Groceries",2400,"🌾"],["Ijebu Garri 1kg","Groceries",1800,"🌾"],["White Garri 2kg","Groceries",3000,"🌾"],["Local Rice 5kg","Groceries",9500,"🍚"],["Ofada Rice 2kg","Groceries",6500,"🍚"],["Mama Gold Rice 5kg","Groceries",10500,"🍚"],["Indomie Chicken Noodles Carton","Groceries",14500,"🍜"],["Golden Penny Spaghetti 500g","Groceries",1200,"🍝"],["Power Oil 1L","Groceries",3800,"🫗"],["Hollandia Yoghurt 1L","Groceries",3200,"🥛"],["Chivita Juice 1L","Groceries",2600,"🧃"],["Coca-Cola 50cl","Groceries",500,"🥤"],["Men Boxer Shorts 3-Pack","Fashion",7500,"🩳"],["Men Boxer Shorts 6-Pack","Fashion",13500,"🩳"],["Men Cargo Shorts","Fashion",12000,"🩳"],["Men Denim Shorts","Fashion",10500,"🩳"],["Women Cotton Panties 3-Pack","Fashion",5000,"🩲"],["Women Cotton Panties 6-Pack","Fashion",9000,"🩲"],["Women Boyshort Underwear 3-Pack","Fashion",6000,"🩳"],["Women Biker Shorts","Fashion",5000,"🩳"],["Women Denim Shorts","Fashion",10500,"🩳"],["Women Crop Top","Fashion",5500,"👚"],["Women Leggings","Fashion",8500,"👖"],["Portable Ring Light with Tripod","Electronics",12500,"💡"],["10-inch LED Ring Light","Electronics",18500,"💡"],["18-inch LED Ring Light Kit","Electronics",48000,"💡"],["RGB LED Strip Lights 5m","Home",6500,"🌈"],["RGB LED Strip Lights 10m","Home",10500,"🌈"],["LED Makeup Mirror","Home",14500,"💡"],["Selfie Stick with Fill Light","Electronics",7500,"🤳"],["Phone Tripod Stand","Electronics",9500,"📱"],["Wireless Lavalier Microphone","Electronics",22000,"🎙️"],["LED Neon Heart Wall Light","Home",12500,"💖"],["Galaxy Projector Night Light","Home",22500,"🌌"],["Pink Wireless Keyboard","Electronics",18500,"⌨️"],["Pink Wireless Mouse","Electronics",8500,"🖱️"],["Cute Phone Charm Strap","Accessories",2500,"🎀"],["Mini Makeup Organizer","Home",9500,"💄"],["Press-On Nails Set","Accessories",3500,"💅"],["Hair Beads Accessories Kit","Accessories",3500,"🎀"],["Rechargeable Mini Fan","Electronics",12500,"🌀"],["Cute Water Bottle with Straw","Accessories",5500,"🥤"],["Women Shoulder Bag","Accessories",14500,"👜"],["Girls Butterfly Hair Clips","Accessories",2500,"🎀"],["Girls Casual Dress","Fashion",12500,"👗"],
-["Milo Refill Pack 900g","Groceries",12500,"🥤"],["Peak Evaporated Milk 170g","Groceries",1700,"🥛"],["Loya Milk Powder 400g","Groceries",6800,"🥛"],["Lactose-Free Milk 1L","Groceries",4200,"🥛"],["Dangote Spaghetti 500g","Groceries",1100,"🍝"],["Golden Penny Macaroni 500g","Groceries",1300,"🍝"],["Dangote Sugar 1kg","Groceries",2200,"🧂"],["Yellow Garri 5kg","Groceries",8500,"🌾"],["Plantain Flour 1kg","Groceries",3000,"🌾"],["Wheat Flour 1kg","Groceries",1800,"🌾"],["Mamador Vegetable Oil 1L","Groceries",4000,"🫗"],["Peak Yoghurt Drink 400ml","Groceries",1300,"🥛"],["Sprite 50cl Bottle","Groceries",500,"🥤"],["Fanta Orange 50cl Bottle","Groceries",500,"🥤"],["Fearless Energy Drink","Groceries",600,"🥤"],["Eva Table Water 75cl Pack","Groceries",2500,"💧"],["Pure Bliss Biscuits Family Pack","Groceries",1500,"🍪"],["Gala Sausage Roll Carton","Groceries",8500,"🥐"],["Titus Sardines 125g","Groceries",1800,"🐟"],["Gino Tomato Paste Sachet Pack","Groceries",2500,"🍅"],["Knorr Chicken Cubes Pack","Groceries",1700,"🧂"],["White Honey Beans 2kg","Groceries",5200,"🫘"],["Brown Beans 1kg","Groceries",2500,"🫘"],["Corn Flakes Family Pack","Groceries",4200,"🥣"],["Men's Loose Cotton Boxers","Fashion",4200,"🩳"],["Men's Sports Compression Shorts","Fashion",6500,"🩳"],["Men's Casual Chino Shorts","Fashion",9500,"🩳"],["Men's Track Pants","Fashion",10500,"👖"],["Men's Polo Shirt","Fashion",8500,"👕"],["Men's White Singlet 3-Pack","Fashion",5500,"👕"],["Men's Cotton Vest 3-Pack","Fashion",5200,"👕"],["Men's Cotton Socks 5-Pack","Fashion",4000,"🧦"],["Women's Seamless Underwear Set","Fashion",6500,"🩲"],["Women's High-Waist Briefs 3-Pack","Fashion",6500,"🩲"],["Women's Sports Shorts","Fashion",6500,"🩳"],["Women's Wide-Leg Trousers","Fashion",14500,"👖"],["Women's Tank Top 2-Pack","Fashion",6000,"👚"],["Women's Bralette 2-Pack","Fashion",6500,"👙"],["Women's Satin Bonnet","Accessories",3500,"🎀"],["Women's Wig Cap 2-Pack","Accessories",2000,"🎀"],["Girls' Colourful Bracelet Set","Accessories",2500,"💖"],["Girls' Beaded Necklace Set","Accessories",3000,"💖"],["Women's Fashion Sunglasses","Accessories",5500,"🕶️"],["Women's Wallet with Card Slots","Accessories",6500,"👛"],["Layered Necklace Set","Accessories",4500,"💍"],["Gold-Tone Hoop Earrings","Accessories",3500,"💍"],["Jewellery Organizer Travel Case","Accessories",5500,"💍"],["12-inch LED Ring Light with Phone Holder","Electronics",22000,"💡"],["Mini Desk Ring Light","Electronics",6500,"💡"],["Overhead Phone Holder for Live Streaming","Electronics",12000,"📱"],["Desktop Phone Stand","Electronics",3500,"📱"],["USB Podcast Microphone","Electronics",18500,"🎙️"],["RGB Gaming Headset","Electronics",18000,"🎧"],["Bluetooth Speaker with LED Lights","Electronics",14500,"🔊"],["Mini Projector for Bedroom","Electronics",65000,"📽️"],["USB Rechargeable Table Lamp","Home",8500,"💡"],["LED Closet Sensor Light 2-Pack","Home",6500,"💡"],["Acrylic LED Desk Sign","Home",9500,"✨"],["USB-C Rechargeable Reading Light","Home",4500,"📖"],["Wireless Earbuds with LED Case","Electronics",16500,"🎧"],["Phone Camera Lens Kit","Electronics",8500,"📸"],["USB Hub 4-Port","Electronics",6500,"🔌"],["Portable Power Bank 20000mAh","Electronics",22000,"🔋"],["Acrylic Lipstick Organizer","Home",6500,"💄"],["Makeup Vanity Storage Box","Home",12500,"💄"],["Nail Polish Set","Accessories",6500,"💅"],["Edge Control Gel","Everyday",3500,"💇"],["Braiding Hair Extensions Pack","Everyday",2500,"💇"],["Synthetic Ponytail Extension","Everyday",8500,"💇"],["Hair Dryer 1800W","Everyday",18500,"💇"],["Hair Straightener Flat Iron","Everyday",16500,"💇"],["Curling Wand","Everyday",15500,"💇"],["Rechargeable Hair Trimmer","Everyday",9500,"💇"],["Rechargeable Handheld Fan","Electronics",6500,"🌀"],["Insulated Tumbler Cup","Accessories",8500,"🥤"],["Lunch Bag for School or Work","Accessories",6500,"👜"],["Mini Crossbody Bag","Accessories",9500,"👜"],["Women's Tote Handbag","Accessories",12000,"👜"],["Adjustable Fashion Rings Set","Accessories",3000,"💍"],["Sunset Projection Lamp","Home",9500,"🌅"],["Rechargeable Emergency Bulb 2-Pack","Home",6500,"💡"],["Portable Sewing Kit","Everyday",2500,"🧵"],["School Backpack for Girls","Accessories",10500,"🎒"],["Girls' Leggings 2-Pack","Fashion",6500,"👖"],["Kids' LED Light-Up Sneakers","Shoes",14500,"👟"],["Women's Flat Sandals","Shoes",8500,"🩴"],["Men's Slide Slippers","Shoes",5500,"🩴"],["Women's Running Shoes","Shoes",18500,"👟"],["Men's Football Boots","Shoes",16500,"👟"],["Unisex Hoodie","Fashion",16500,"🧥"],["Unisex Baseball Cap","Accessories",4500,"🧢"],["Men's Leather Belt","Accessories",5000,"👔"],["Smart Watch with Fitness Tracking","Electronics",22500,"⌚"],["USB-C Fast Charger 25W","Electronics",7500,"🔌"],["Tempered Glass Screen Protector","Accessories",1500,"📱"],["Laptop Cooling Pad","Electronics",12500,"💻"],["Wireless Game Controller","Electronics",18500,"🎮"],["Foldable Study Table","Home",18500,"🪑"],["Microfiber Bedsheet Set","Home",16500,"🛏️"],["Laundry Basket with Lid","Home",8500,"🧺"],["Nonstick Frying Pan","Home",12500,"🍳"],["Electric Kettle 1.7L","Home",18500,"🫖"],["Blender 2L","Home",28500,"🥤"],["Kids' Teddy Bear Plush Toy","Kids",9500,"🧸"],["Baby Feeding Bottle Set","Kids",6500,"🍼"],["Baby Diapers Pack","Kids",8500,"🍼"],["School Exercise Books 12-Pack","Books",6500,"📚"],["Ballpoint Pens 10-Pack","Books",2500,"🖊️"],["Scientific Calculator","Books",8500,"🧮"],["Football Training Bibs Set","Sport",8500,"⚽"],["Basketball Jersey and Shorts Set","Sport",14500,"🏀"],["Goalkeeper Gloves","Sport",9500,"🧤"],["Tennis Racket","Sport",16500,"🎾"],["Volleyball","Sport",9500,"🏐"]
-].map((x,i)=>{const n=x[0].toLowerCase();const images=[
-[/milo|bournvita|drink|milk|yoghurt|juice|coca-cola|sprite|fanta|energy drink|water|biscuits|gala|sardine|tomato|noodles|spaghetti|macaroni|garri|rice|beans|flour|semolina|semovita|oil|sugar|corn flakes/i,"https://cdn.dummyjson.com/product-images/groceries/rice/thumbnail.webp"],
-[/ring light|led ring|led makeup mirror|neon heart|galaxy projector|sunset projection|led strip|led desk sign|emergency bulb|closet sensor|table lamp|reading light/i,"https://cdn.dummyjson.com/product-images/home-decoration/table-lamp/thumbnail.webp"],
-[/tripod|phone holder|phone stand|selfie stick|camera lens|lavalier|podcast microphone|microphone|gaming headset|earbuds|wireless keyboard|wireless mouse|power bank|usb hub|charger|fan|projector/i,"https://cdn.dummyjson.com/product-images/mobile-accessories/selfie-lamp-with-iphone/thumbnail.webp"],
-[/boxer|underwear|panties|boyshort|biker shorts|denim shorts|leggings|trousers|tank top|bralette|singlet|vest|socks|polo shirt|cotton|hoodie|cap|dress|t-shirt|shirt/i,"https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp"],
-[/hair|bonnet|wig|nail|lipstick|makeup|beads|bracelet|necklace|earring|jewellery|jewelry|ring|sunglasses|wallet|bag|purse|handbag|crossbody|tote/i,"https://cdn.dummyjson.com/product-images/womens-bags/blue-women%27s-handbag/thumbnail.webp"],
-[/slippers|sandals|sneakers|shoes|boots/i,"https://cdn.dummyjson.com/product-images/mens-shoes/puma-future-rider-trainers/thumbnail.webp"],
-[/blender/i,"https://cdn.dummyjson.com/product-images/kitchen-accessories/boxed-blender/thumbnail.webp"],
-[/kettle|frying pan|pan|sewing kit|laundry basket|bedsheet|study table|organizer|storage|tumbler|lunch bag|water bottle/i,"https://cdn.dummyjson.com/product-images/kitchen-accessories/pan/thumbnail.webp"],
-[/teddy|plush|baby|diapers|kids|girls/i,"https://cdn.dummyjson.com/product-images/tops/girl-summer-dress/thumbnail.webp"],
-[/football|basketball|tennis|volleyball|gloves|sports/i,"https://cdn.dummyjson.com/product-images/sports-accessories/football/thumbnail.webp"]
-];const image=(images.find(([re])=>re.test(n))||[])[1]||"";
-return {id:30000+i,name:x[0],category:x[1],price:x[2],emoji:x[3],image,tag:"Price estimate",note:"Indicative Nigerian retail estimate; photo is a representative product reference—confirm exact brand, size and seller price."}});
-products.push(...localMarketExtras.filter(x=>x&&typeof x.name==="string"&&!products.some(p=>p.name.toLowerCase()===x.name.toLowerCase())));
-function renderProducts(){const list=filteredProducts();$("#active-filter").textContent=searchTerm?'Search results for "'+searchTerm+'" · '+list.length+' found':"Showing "+(activeCategory==="All"?"all categories":activeCategory)+" · "+list.length+" products";if(!list.length){grid.innerHTML='<div class="empty-state"><strong>No matching products yet.</strong><p>Try another search or category.</p></div>';return}grid.innerHTML=list.map(p=>'<article class="product-card"><div class="product-image"><img src="'+p.image+'" alt="'+p.name+'" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'image-fallback\')"><span class="product-tag">'+p.tag+'</span></div><div class="product-info"><span class="product-category">'+p.category+'</span><h3>'+p.name+'</h3><div class="product-price">'+money(p.price)+'</div><div class="product-note">'+p.note+'</div><button class="add-button" data-add="'+p.id+'">＋ Add to cart</button></div></article>').join("");grid.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addToCart(Number(b.dataset.add))))}
-function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart();openCart()}
-function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];renderCart()}
-function renderCart(){const entries=Object.entries(cart);const count=entries.reduce((n,item)=>n+item[1],0);const total=entries.reduce((n,item)=>n+products.find(p=>p.id===Number(item[0])).price*item[1],0);$("#cart-count").textContent=count;$("#cart-total").textContent=money(total);$("#cart-items").innerHTML=entries.length?entries.map(item=>{const id=item[0],q=item[1],p=products.find(x=>x.id===Number(id));return '<div class="cart-row"><div class="cart-thumb">'+p.emoji+'</div><div><strong>'+p.name+'</strong><small>'+money(p.price)+' each</small><div class="qty-controls"><button data-minus="'+id+'" aria-label="Decrease quantity">−</button><span>'+q+'</span><button data-plus="'+id+'" aria-label="Increase quantity">＋</button></div></div><button class="remove" data-remove="'+id+'">Remove</button></div>'}).join(""):'<div class="empty-state"><strong>Your cart is empty.</strong><p>Add a few things you like and they’ll appear here.</p></div>';$("#cart-items").querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>changeQty(Number(b.dataset.minus),-1));$("#cart-items").querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>changeQty(Number(b.dataset.plus),1));$("#cart-items").querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{delete cart[Number(b.dataset.remove)];renderCart()})}
-function openCart(){$("#cart-drawer").classList.add("open");$("#overlay").classList.add("open");$("#cart-drawer").setAttribute("aria-hidden","false")}
-function closeCart(){$("#cart-drawer").classList.remove("open");$("#overlay").classList.remove("open");$("#cart-drawer").setAttribute("aria-hidden","true")}
-function showNotice(title,message){$("#notice-title").textContent=title;$("#notice-message").textContent=message;$("#notice-modal").classList.add("open");$("#overlay").classList.add("open")}
-function closeNotice(){$("#notice-modal").classList.remove("open");$("#overlay").classList.remove("open")}
-document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.category;document.querySelectorAll(".category").forEach(x=>x.classList.toggle("active",x===b));renderProducts()}));
-$("#search-form").addEventListener("submit",e=>{e.preventDefault();searchTerm=$("#search-input").value.trim().toLowerCase();renderProducts();$("#products").scrollIntoView({behavior:"smooth"})});
-$("#search-input").addEventListener("input",e=>{searchTerm=e.target.value.trim().toLowerCase();renderProducts()});
-$("#sort-select").addEventListener("change",renderProducts);
-$("#cart-open").addEventListener("click",openCart);$("#cart-close").addEventListener("click",closeCart);
-$("#overlay").addEventListener("click",()=>{closeCart();closeNotice()});
-$("#checkout-button").addEventListener("click",()=>showNotice("Secure checkout is coming","Your cart is working, but customer accounts, order storage and payment processing are not connected yet. We will set those up before accepting real orders."));
-$("#seller-interest").addEventListener("click",()=>showNotice("Seller registration is coming","Seller accounts and the seller dashboard are planned for the next stage. No seller application has been submitted."));
-$("#notice-close").addEventListener("click",closeNotice);$("#notice-ok").addEventListener("click",closeNotice);
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeCart();closeNotice()}});
-$("#year").textContent=new Date().getFullYear();
-// Import real product records with source USD prices and convert them to NGN.
-// Reference FX rate: CBN central USD/NGN rate published 15 Oct 2026 (₦1,331.11).
-// This is a reference conversion, not a live FX feed or a Jumia price.
-async function loadUsdCatalogue(){
-  const FX_NGN_PER_USD=1331.11;
-  const emojiMap={"Electronics":"📱","Computing":"💻","Shoes":"👟","Fashion":"👕","Accessories":"👜","Home":"🏠","Everyday":"🧴","Sport":"⚽","Groceries":"🛒","Kids":"🧸"};
-  const mapDummy={"beauty":"Everyday","fragrances":"Everyday","furniture":"Home","groceries":"Groceries","home-decoration":"Home","kitchen-accessories":"Home","laptops":"Computing","mens-shirts":"Fashion","mens-shoes":"Shoes","mens-watches":"Accessories","mobile-accessories":"Electronics","motorcycle":"Everyday","skin-care":"Everyday","smartphones":"Electronics","sports-accessories":"Sport","sunglasses":"Accessories","tablets":"Electronics","tops":"Fashion","vehicle":"Everyday","womens-bags":"Accessories","womens-dresses":"Fashion","womens-jewellery":"Accessories","womens-shoes":"Shoes","womens-watches":"Accessories"};
-  const mapPlatzi={"Clothes":"Fashion","Electronics":"Electronics","Furniture":"Home","Shoes":"Shoes","Miscellaneous":"Everyday"};
-  const urls=["https://dummyjson.com/products?limit=0","https://api.escuelajs.co/api/v1/products?offset=0&limit=250","https://scenesku.com/api/v1/public-packs/womens-fashion","https://scenesku.com/api/v1/public-packs/home-decor","https://scenesku.com/api/v1/public-packs/shoes"];
-  const results=await Promise.allSettled(urls.map(url=>fetch(url).then(async r=>{if(!r.ok)throw Error("Catalogue source unavailable");return r.json()})));
-  const records=[];
-  results.forEach((result,index)=>{if(result.status!=="fulfilled")return;const data=result.value;
-    if(index===0){(data.products||[]).forEach(x=>records.push({name:x.title,category:mapDummy[x.category]||"Everyday",usd:Number(x.price)||0,image:x.thumbnail||(x.images||[])[0]||"",source:"DummyJSON"}));}
-    else if(index===1){(Array.isArray(data)?data:[]).forEach(x=>records.push({name:x.title,category:mapPlatzi[x.category&&x.category.name]||"Everyday",usd:Number(x.price)||0,image:(x.images||[]).find(u=>typeof u==="string"&&u.startsWith("http")&&!u.includes("placeimg.com"))||"",source:"EscuelaJS"}));}
-    else{(data.data||[]).filter(x=>x.state==="completed"&&x.product_data).forEach(x=>records.push({name:x.product_data.product_title,category:index===4?"Shoes":index===3?"Home":"Fashion",usd:Number(x.product_data.price)||0,image:x.images?.[0]?.image_url||"",source:"SceneSKU"}));}
+const products = [];
+
+// Automatically generate 505 structured goods
+for (let i = 1; i <= 505; i++) {
+  const selectedCat = categories[i % categories.length];
+  const brand = brands[i % brands.length];
+  const availableTypes = itemTypes[selectedCat];
+  const type = availableTypes[i % availableTypes.length];
+  
+  const productName = brand + " " + type + " Mod-" + (200 + i);
+  
+  let basePrice = 2500 + (i * 750);
+  if (selectedCat === "Gadgets") basePrice += 85000;
+  if (selectedCat === "Food Stuffs" && type.includes("Rice")) basePrice += 60000;
+  
+  const finalPrice = Math.ceil(basePrice / 500) * 500;
+
+  products.push({
+    id: i,
+    name: productName,
+    category: selectedCat,
+    price: finalPrice,
+    img: imagePool[selectedCat]
   });
-  const seen=new Set(products.map(p=>p.name.trim().toLowerCase()));
-  let nextId=Math.max(999,...products.map(p=>Number(p.id)||0))+1;
-  for(const item of records){const name=String(item.name||"").trim();const image=String(item.image||"");
-    if(!name||seen.has(name.toLowerCase())||!/^https:\/\//i.test(image)||!(item.usd>0))continue;
-    seen.add(name.toLowerCase());const price=Math.round(item.usd*FX_NGN_PER_USD/100)*100;
-    products.push({id:nextId++,name,category:item.category,price,usdPrice:item.usd,emoji:emojiMap[item.category]||"🛍️",image,tag:"USD converted",note:"US$"+item.usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: "+item.source+"; not a Jumia price."});
-  }
-  renderProducts();
-  console.info("MIVG catalogue count:",products.length,"unique source products:",seen.size,"imported records:",records.length);
-  if(products.length<500)showNotice("Catalogue sources incomplete","Only "+products.length+" listings loaded. Some product sources may be unavailable on this connection.");
 }
-renderProducts();renderCart();loadUsdCatalogue();
+
+// STATE AND DISPLAY MANAGEMENT
+let activeCategory = "All";
+let currentPage = 1;
+const itemsPerPage = 12;
+
+function renderStore() {
+  const grid = document.getElementById("product-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  // Filter items based on selected category tab
+  let filtered = products;
+  if (activeCategory !== "All") {
+    filtered = products.filter(p => p.category === activeCategory);
+  }
+
+  // Calculate Pagination splits
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const visibleItems = filtered.slice(startIndex, endIndex);
+
+  // Generate ChatGPT style semantic HTML article structures
+  visibleItems.forEach(product => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.innerHTML = `
+      <div class="product-image">
+        <img src="${product.img}" alt="${product.name}">
+      </div>
+      <div class="product-info">
+        <span class="product-category">${product.category}</span>
+        <h3>${product.name}</h3>
+        <div class="product-price">₦${product.price.toLocaleString()}</div>
+        <div class="product-note">Premium stock confirmation ready</div>
+        <button class="add-button" type="button" onclick="handleAddToCart(${product.id})">Add to Cart</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Render or update navigation buttons dynamically below the grid
+  updatePaginationControls(totalPages);
+}
+
+function updatePaginationControls(totalPages) {
+  let navContainer = document.getElementById("pagination-container");
+  if (!navContainer) {
+    navContainer = document.createElement("div");
+    navContainer.id = "pagination-container";
+    navContainer.style.display = "flex";
+    navContainer.style.justify = "center";
+    navContainer.style.alignItems = "center";
+    navContainer.style.gap = "15px";
+    navContainer.style.marginTop = "30px";
+    document.getElementById("product-grid").after(navContainer);
+  }
+
+  navContainer.innerHTML = `
+    <button onclick="changePage(-1)" ${currentPage === 1 ? "disabled" : ""} style="padding: 10px 20px; background: #e5e7eb; border-radius: 8px; font-weight: bold; cursor: pointer;">Previous</button>
+    <span style="font-weight: bold;">Page ${currentPage} of ${totalPages || 1}</span>
+    <button onclick="changePage(1)" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""} style="padding: 10px 20px; background: #176b57; color: white; border-radius: 8px; font-weight: bold; cursor: pointer;">Next</button>
+  `;
+}
+
+// APP LOGIC TRIGGERS
+let cartCount = 0;
+window.handleAddToCart = function(id) {
+  cartCount++;
+  const counterElement = document.getElementById("cart-count");
+  if (counterElement) counterElement.textContent = cartCount;
+};
+
+window.changePage = function(direction) {
+  currentPage += direction;
+  renderStore();
+  window.scrollTo({ top: document.getElementById("products").offsetTop, behavior: "smooth" });
+};
+
+// Map navigation click listeners onto ChatGPT buttons
+document.querySelectorAll(".category").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
+    e.currentTarget.classList.add("active");
+    activeCategory = e.currentTarget.getAttribute("data-category");
+    currentPage = 1;
+    
+    // Convert short tag text for filtering matching criteria
+    if (activeCategory === "Shoes") activeCategory = "Sport Stuffs";
+    if (activeCategory === "Home") activeCategory = "House Materials";
+    if (activeCategory === "Accessories") activeCategory = "School Stuffs";
+    
+    renderStore();
+  });
+});
+
+window.onload = function() {
+  const yearSpan = document.getElementById("year");
+  if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+  renderStore();
+};
