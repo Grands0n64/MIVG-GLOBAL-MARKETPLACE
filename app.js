@@ -83,6 +83,8 @@ Home:"https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=
 Books:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=85",
 Everyday:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=900&q=85",
 Sport:"https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=85",
+Football:"https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=85",
+Basketball:"https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=85",
 Groceries:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85",
 Kids:"https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=900&q=85",
 Computing:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85"
@@ -98,8 +100,30 @@ while (products.length < 1000) {
       const name = model + " — " + suffix + (catalogueRound > 1 ? " " + catalogueRound : "");
       if (existingNames.has(name.toLowerCase())) continue;
       existingNames.add(name.toLowerCase());
-      const price = Math.round((group.base + (((products.length * 7919) + i*1871 + catalogueRound*997) % (group.step*5))) / 100) * 100;
-      products.push({id:products.length+1,name,category:group.category,price,emoji:group.emoji,image:catalogueImages[group.category],tag:"Marketplace pick",note:"Product listing · confirm seller, availability and final price before purchase"});
+      const lowerName = model.toLowerCase();
+      let price;
+      if (group.category==="Electronics" || group.category==="Computing") {
+        if (/iphone|smartphone|laptop computer|business laptop|elitebook|vivobook|monitor|printer|power station/.test(lowerName)) price = 180000 + ((products.length * 7919 + i * 1871) % 920000);
+        else if (/hard drive|ssd|ram module|battery|screen|router|smart watch|speaker|headphones|earbuds|microphone|webcam/.test(lowerName)) price = 8500 + ((products.length * 7919 + i * 1871) % 95000);
+        else price = 1800 + ((products.length * 7919 + i * 1871) % 28000);
+      } else if (group.category==="Shoes") {
+        price = /boots|leather office|safety shoes/.test(lowerName) ? 18000 + ((products.length*7919+i*1871)%52000) : 4500 + ((products.length*7919+i*1871)%30000);
+      } else if (group.category==="Fashion") {
+        price = /jacket|tracksuit|hoodie|jeans|dress|gown|two-piece/.test(lowerName) ? 8500 + ((products.length*7919+i*1871)%32000) : 2500 + ((products.length*7919+i*1871)%18000);
+      } else if (group.category==="Sport") {
+        price = /football$|basketball$|volleyball$|tennis balls/.test(lowerName) ? 6500 + ((products.length*7919+i*1871)%24000) : /jersey|boots|shoes|hoop|racket|net/.test(lowerName) ? 7500 + ((products.length*7919+i*1871)%38000) : 1800 + ((products.length*7919+i*1871)%16000);
+      } else if (group.category==="Groceries") {
+        price = /rice 5kg|beans 2kg|carton|oil 1l|spaghetti carton/.test(lowerName) ? 3500 + ((products.length*7919+i*1871)%16000) : 700 + ((products.length*7919+i*1871)%7500);
+      } else if (group.category==="Home") {
+        price = /freezer|washing machine|generator|power station|solar panel|gas cooker/.test(lowerName) ? 120000 + ((products.length*7919+i*1871)%680000) : /microwave|air fryer|blender|fan|kettle|iron/.test(lowerName) ? 6500 + ((products.length*7919+i*1871)%85000) : 1200 + ((products.length*7919+i*1871)%25000);
+      } else {
+        price = group.base + ((products.length * 7919 + i * 1871 + catalogueRound * 997) % Math.max(group.step*3,4000));
+      }
+      price = Math.round(price / 100) * 100;
+      let image = catalogueImages[group.category];
+      if (group.category==="Sport" && /basketball|nba style/.test(lowerName)) image = catalogueImages.Basketball;
+      else if (group.category==="Sport") image = catalogueImages.Football;
+      products.push({id:products.length+1,name,category:group.category,price,emoji:group.emoji,image,tag:"Marketplace pick",note:"Product listing · confirm seller, availability and final price before purchase"});
     }
   }
   catalogueRound++;
