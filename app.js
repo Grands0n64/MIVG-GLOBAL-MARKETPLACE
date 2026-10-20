@@ -1,7 +1,7 @@
 const products=[
 {image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85",id:1,name:"Wireless Bluetooth Headphones",category:"Electronics",price:18500,emoji:"🎧",tag:"Popular",note:"Starter listing · confirm price"},
 {image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",id:2,name:"Everyday Classic Sneakers",category:"Shoes",price:22000,emoji:"👟",tag:"Style pick",note:"Starter listing · confirm price"},
-{image:"https://images.fravega.com/f1000/5ada64b6eb5e05c35939625ff210657d.jpg",id:3,name:"Smartphone",category:"Electronics",price:185000,emoji:"📱",tag:"Tech",note:"Model and price to be confirmed"},
+{image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=85",id:3,name:"Smartphone",category:"Electronics",price:185000,emoji:"📱",tag:"Tech",note:"Model and price to be confirmed"},
 {image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85",id:4,name:"Classic Everyday Backpack",category:"Accessories",price:14500,emoji:"🎒",tag:"Everyday",note:"Starter listing · confirm price"},
 {image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",id:5,name:"Casual Streetwear T-Shirt",category:"Fashion",price:8500,emoji:"👕",tag:"Fashion",note:"Size and price to be confirmed"},
 {image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85",id:6,name:"Wristwatch",category:"Accessories",price:17500,emoji:"⌚",tag:"Finishing touch",note:"Starter listing · confirm price"},
@@ -11,7 +11,7 @@ const products=[
 {image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",id:10,name:"Everyday Tote Bag",category:"Accessories",price:12000,emoji:"👜",tag:"Useful find",note:"Starter listing · confirm price"},
 {image:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=85",id:11,name:"Books & Learning",category:"Books",price:7500,emoji:"📚",tag:"Learn more",note:"Title and price to be confirmed"},
 {image:"https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=900&q=85",id:12,name:"Soft Teddy Bear",category:"Home",price:12500,emoji:"🧸",tag:"Gift idea",note:"Size and price to be confirmed"},
-{image:"https://m.media-amazon.com/images/I/61zH5agYgZL._SL500_.jpg",id:13,name:"Home Generator",category:"Home",price:285000,emoji:"🔌",tag:"Home utility",note:"Capacity and price to be confirmed"},
+{image:"https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=85",id:13,name:"Home Generator",category:"Home",price:285000,emoji:"🔌",tag:"Home utility",note:"Capacity and price to be confirmed"},
 {image:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&q=85",id:14,name:"Fashion Jewellery",category:"Accessories",price:9500,emoji:"💎",tag:"Finishing touch",note:"Material and price to be confirmed"},
 {image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85",id:15,name:"Laptop Sleeve",category:"Accessories",price:10500,emoji:"💼",tag:"Work essentials",note:"Size and price to be confirmed"},
 {image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85",id:16,name:"Everyday Shirt",category:"Fashion",price:13500,emoji:"👔",tag:"Wardrobe",note:"Size and price to be confirmed"}
