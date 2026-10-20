@@ -1,0 +1,43 @@
+const products=[
+{id:1,name:"Wireless Bluetooth Headphones",category:"Electronics",price:18500,emoji:"🎧",tag:"Popular",note:"Starter listing · confirm price"},
+{id:2,name:"Everyday Classic Sneakers",category:"Shoes",price:22000,emoji:"👟",tag:"Style pick",note:"Starter listing · confirm price"},
+{id:3,name:"Smartphone",category:"Electronics",price:185000,emoji:"📱",tag:"Tech",note:"Model and price to be confirmed"},
+{id:4,name:"Classic Everyday Backpack",category:"Accessories",price:14500,emoji:"🎒",tag:"Everyday",note:"Starter listing · confirm price"},
+{id:5,name:"Casual Streetwear T-Shirt",category:"Fashion",price:8500,emoji:"👕",tag:"Fashion",note:"Size and price to be confirmed"},
+{id:6,name:"Wristwatch",category:"Accessories",price:17500,emoji:"⌚",tag:"Finishing touch",note:"Starter listing · confirm price"},
+{id:7,name:"Laptop Computer",category:"Electronics",price:650000,emoji:"💻",tag:"Work & study",note:"Specifications and price to be confirmed"},
+{id:8,name:"Football Jersey",category:"Fashion",price:18000,emoji:"⚽",tag:"Sport",note:"Team, size and price to be confirmed"},
+{id:9,name:"Comfortable Slippers",category:"Shoes",price:6500,emoji:"🩴",tag:"Daily essential",note:"Starter listing · confirm price"},
+{id:10,name:"Everyday Tote Bag",category:"Accessories",price:12000,emoji:"👜",tag:"Useful find",note:"Starter listing · confirm price"},
+{id:11,name:"Books & Learning",category:"Books",price:7500,emoji:"📚",tag:"Learn more",note:"Title and price to be confirmed"},
+{id:12,name:"Soft Teddy Bear",category:"Home",price:12500,emoji:"🧸",tag:"Gift idea",note:"Size and price to be confirmed"},
+{id:13,name:"Home Generator",category:"Home",price:285000,emoji:"🔌",tag:"Home utility",note:"Capacity and price to be confirmed"},
+{id:14,name:"Fashion Jewellery",category:"Accessories",price:9500,emoji:"💎",tag:"Finishing touch",note:"Material and price to be confirmed"},
+{id:15,name:"Laptop Sleeve",category:"Accessories",price:10500,emoji:"💼",tag:"Work essentials",note:"Size and price to be confirmed"},
+{id:16,name:"Everyday Shirt",category:"Fashion",price:13500,emoji:"👔",tag:"Wardrobe",note:"Size and price to be confirmed"}
+];
+const money=n=>"₦"+Number(n).toLocaleString("en-NG");
+let activeCategory="All",searchTerm="",cart={};
+const $=s=>document.querySelector(s);
+const grid=$("#product-grid");
+function filteredProducts(){let list=products.filter(p=>(activeCategory==="All"||p.category===activeCategory)&&((p.name+" "+p.category+" "+p.tag).toLowerCase().includes(searchTerm)));const sort=$("#sort-select").value;if(sort==="low")list.sort((a,b)=>a.price-b.price);if(sort==="high")list.sort((a,b)=>b.price-a.price);return list}
+function renderProducts(){const list=filteredProducts();$("#active-filter").textContent=searchTerm?'Search results for "'+searchTerm+'" · '+list.length+' found':"Showing "+(activeCategory==="All"?"all categories":activeCategory)+" · "+list.length+" products";if(!list.length){grid.innerHTML='<div class="empty-state"><strong>No matching products yet.</strong><p>Try another search or category.</p></div>';return}grid.innerHTML=list.map(p=>'<article class="product-card"><div class="product-image"><span class="emoji" aria-hidden="true">'+p.emoji+'</span><span class="product-tag">'+p.tag+'</span></div><div class="product-info"><span class="product-category">'+p.category+'</span><h3>'+p.name+'</h3><div class="product-price">'+money(p.price)+'</div><div class="product-note">'+p.note+'</div><button class="add-button" data-add="'+p.id+'">＋ Add to cart</button></div></article>').join("");grid.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addToCart(Number(b.dataset.add))))}
+function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart();openCart()}
+function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];renderCart()}
+function renderCart(){const entries=Object.entries(cart);const count=entries.reduce((n,item)=>n+item[1],0);const total=entries.reduce((n,item)=>n+products.find(p=>p.id===Number(item[0])).price*item[1],0);$("#cart-count").textContent=count;$("#cart-total").textContent=money(total);$("#cart-items").innerHTML=entries.length?entries.map(item=>{const id=item[0],q=item[1],p=products.find(x=>x.id===Number(id));return '<div class="cart-row"><div class="cart-thumb">'+p.emoji+'</div><div><strong>'+p.name+'</strong><small>'+money(p.price)+' each</small><div class="qty-controls"><button data-minus="'+id+'" aria-label="Decrease quantity">−</button><span>'+q+'</span><button data-plus="'+id+'" aria-label="Increase quantity">＋</button></div></div><button class="remove" data-remove="'+id+'">Remove</button></div>'}).join(""):'<div class="empty-state"><strong>Your cart is empty.</strong><p>Add a few things you like and they’ll appear here.</p></div>';$("#cart-items").querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>changeQty(Number(b.dataset.minus),-1));$("#cart-items").querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>changeQty(Number(b.dataset.plus),1));$("#cart-items").querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{delete cart[Number(b.dataset.remove)];renderCart()})}
+function openCart(){$("#cart-drawer").classList.add("open");$("#overlay").classList.add("open");$("#cart-drawer").setAttribute("aria-hidden","false")}
+function closeCart(){$("#cart-drawer").classList.remove("open");$("#overlay").classList.remove("open");$("#cart-drawer").setAttribute("aria-hidden","true")}
+function showNotice(title,message){$("#notice-title").textContent=title;$("#notice-message").textContent=message;$("#notice-modal").classList.add("open");$("#overlay").classList.add("open")}
+function closeNotice(){$("#notice-modal").classList.remove("open");$("#overlay").classList.remove("open")}
+document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.category;document.querySelectorAll(".category").forEach(x=>x.classList.toggle("active",x===b));renderProducts()}));
+$("#search-form").addEventListener("submit",e=>{e.preventDefault();searchTerm=$("#search-input").value.trim().toLowerCase();renderProducts();$("#products").scrollIntoView({behavior:"smooth"})});
+$("#search-input").addEventListener("input",e=>{searchTerm=e.target.value.trim().toLowerCase();renderProducts()});
+$("#sort-select").addEventListener("change",renderProducts);
+$("#cart-open").addEventListener("click",openCart);$("#cart-close").addEventListener("click",closeCart);
+$("#overlay").addEventListener("click",()=>{closeCart();closeNotice()});
+$("#checkout-button").addEventListener("click",()=>showNotice("Secure checkout is coming","Your cart is working, but customer accounts, order storage and payment processing are not connected yet. We will set those up before accepting real orders."));
+$("#seller-interest").addEventListener("click",()=>showNotice("Seller registration is coming","Seller accounts and the seller dashboard are planned for the next stage. No seller application has been submitted."));
+$("#notice-close").addEventListener("click",closeNotice);$("#notice-ok").addEventListener("click",closeNotice);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeCart();closeNotice()}});
+$("#year").textContent=new Date().getFullYear();
+renderProducts();renderCart();
