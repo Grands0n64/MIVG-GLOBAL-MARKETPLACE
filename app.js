@@ -41,7 +41,7 @@ const specificImages = {
   "Waterproof Backpack": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85",
   "Hardcover Notebook Pack": "https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=900&q=85",
   "Mathematical Set": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=900&q=85",
-  "Scientific Calculator": "https://images.unsplash.com/photo-1564473185935-5d6f8b5d6b77?auto=format&fit=crop&w=900&q=85",
+  "Scientific Calculator": "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=900&q=85",
   "Desk Organizer Box": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85",
   
   // --- HOUSE MATERIALS ---
