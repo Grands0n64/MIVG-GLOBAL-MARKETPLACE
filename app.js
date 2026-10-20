@@ -87,4 +87,28 @@ $("#seller-interest").addEventListener("click",()=>showNotice("Seller registrati
 $("#notice-close").addEventListener("click",closeNotice);$("#notice-ok").addEventListener("click",closeNotice);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeCart();closeNotice()}});
 $("#year").textContent=new Date().getFullYear();
-renderProducts();renderCart();
+// Import real product records with source USD prices and convert them to NGN.
+// Reference FX rate: CBN central USD/NGN rate published 15 Oct 2026 (₦1,331.11).
+// This is a reference conversion, not a live FX feed or a Jumia price.
+async function loadUsdCatalogue(){
+  const FX_NGN_PER_USD=1331.11;
+  const categoryMap={"beauty":"Everyday","fragrances":"Everyday","furniture":"Home","groceries":"Groceries","home-decoration":"Home","kitchen-accessories":"Home","laptops":"Computing","mens-shirts":"Fashion","mens-shoes":"Shoes","mens-watches":"Accessories","mobile-accessories":"Electronics","motorcycle":"Everyday","skin-care":"Everyday","smartphones":"Electronics","sports-accessories":"Sport","sunglasses":"Accessories","tablets":"Electronics","tops":"Fashion","vehicle":"Everyday","womens-bags":"Accessories","womens-dresses":"Fashion","womens-jewellery":"Accessories","womens-shoes":"Shoes","womens-watches":"Accessories"};
+  const emojiMap={"Electronics":"📱","Computing":"💻","Shoes":"👟","Fashion":"👕","Accessories":"👜","Home":"🏠","Everyday":"🧴","Sport":"⚽","Groceries":"🛒","Kids":"🧸"};
+  try{
+    const response=await fetch("https://dummyjson.com/products?limit=0");
+    if(!response.ok) throw new Error("Product source unavailable");
+    const data=await response.json();
+    const imported=(data.products||[]).map((item,index)=>{
+      const usd=Number(item.price)||0;
+      const category=categoryMap[item.category]||"Everyday";
+      return {id:1000+index,name:item.title,category,price:Math.round(usd*FX_NGN_PER_USD/100)*100,usdPrice:usd,emoji:emojiMap[category]||"🛍️",image:item.thumbnail||(item.images||[])[0]||"",tag:"USD converted",note:"US$"+usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: DummyJSON, not Jumia."};
+    });
+    const known=new Set(products.map(p=>p.name.toLowerCase()));
+    for(const item of imported){if(!known.has(item.name.toLowerCase()))products.push(item);}
+    renderProducts();
+  }catch(error){
+    console.warn("USD catalogue could not be loaded",error);
+    showNotice("Some products could not load","The additional product catalogue needs an internet connection. Please refresh and try again.");
+  }
+}
+renderProducts();renderCart();loadUsdCatalogue();
