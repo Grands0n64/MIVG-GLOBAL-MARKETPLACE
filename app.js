@@ -1,4 +1,7 @@
-// IVAVIK MARKETPLACE LTD - 505 TARGETED MATCHING PRODUCT DIRECTORY
+// =========================================================================
+// IVAVIK MARKETPLACE LTD - 505 PREMIUM REAL PRODUCT MATCHING BACKEND
+// =========================================================================
+
 const categories = ["Food Stuffs", "Gadgets", "Sport Stuffs", "School Stuffs", "House Materials"];
 const brands = ["Ivavik Premium", "Dangote", "Golden Penny", "Samsung", "Oraimo", "Sony", "Nike", "Adidas", "Cway", "Scanfrost"];
 
@@ -10,9 +13,9 @@ const itemTypes = {
   "House Materials": ["Rechargeable Standing Fan", "Electric Blender", "LED Energy Saving Bulb", "Smart Door Lock", "Microwave Oven"]
 };
 
-// THE VERIFIED DIRECT PHOTO GRAPH
+// 📸 STRICT HIGH-QUALITY REAL PHOTOGRAPHY INDEX MAP
 const specificImages = {
-  // --- FOOD STUFFS MAP ---
+  // --- FOOD STUFFS ---
   "Bag of Rice (50kg)": "https://unsplash.com",
   "Carton of Indomie": "https://unsplash.com",
   "Gallon of Vegetable Oil": "https://unsplash.com",
@@ -20,28 +23,28 @@ const specificImages = {
   "Bag of Refined Sugar": "https://unsplash.com",
   "Pack of Spaghetti": "https://unsplash.com",
   
-  // --- GADGETS MAP ---
+  // --- GADGETS ---
   "Smart Phone 128GB": "https://unsplash.com",
   "Core i5 Slim Laptop": "https://unsplash.com",
   "Wireless Bluetooth Earbuds": "https://unsplash.com",
   "Fast Charging Power Bank": "https://unsplash.com",
   "43-inch Smart TV": "https://unsplash.com",
   
-  // --- SPORT STUFFS MAP ---
+  // --- SPORT STUFFS ---
   "Leather Football": "https://unsplash.com",
   "Training Tracksuit": "https://unsplash.com",
   "Running Sneakers": "https://unsplash.com",
   "Gym Dumbbell Set": "https://unsplash.com",
   "Agility Training Cones": "https://unsplash.com",
   
-  // --- SCHOOL STUFFS MAP ---
+  // --- SCHOOL STUFFS ---
   "Waterproof Backpack": "https://unsplash.com",
   "Hardcover Notebook Pack": "https://unsplash.com",
   "Mathematical Set": "https://unsplash.com",
   "Scientific Calculator": "https://unsplash.com",
   "Desk Organizer Box": "https://unsplash.com",
   
-  // --- HOUSE MATERIALS MAP ---
+  // --- HOUSE MATERIALS ---
   "Rechargeable Standing Fan": "https://unsplash.com",
   "Electric Blender": "https://unsplash.com",
   "LED Energy Saving Bulb": "https://unsplash.com",
@@ -51,7 +54,7 @@ const specificImages = {
 
 const products = [];
 
-// Loop logic to pop exactly 505 correctly mapped object instances
+// Automated Loop Engine to compile exactly 505 inventory objects
 for (let i = 1; i <= 505; i++) {
   const selectedCat = categories[i % categories.length];
   const brand = brands[i % brands.length];
@@ -76,7 +79,7 @@ for (let i = 1; i <= 505; i++) {
   });
 }
 
-// MANAGEMENT DRAWER & RENDERING INJECTIONS
+// LAYOUT PACKAGING AND INTERACTION RENDERING
 let activeCategory = "All";
 let currentPage = 1;
 const itemsPerPage = 12;
@@ -100,8 +103,8 @@ function renderStore() {
     const card = document.createElement("article");
     card.className = "product-card";
     card.innerHTML = `
-      <div class="product-image" style="width:100%; height:180px; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-        <img src="${product.img}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover;">
+      <div class="product-image">
+        <img src="${product.img}" alt="${product.name}">
       </div>
       <div class="product-info">
         <span class="product-category">${product.category}</span>
@@ -131,9 +134,9 @@ function updatePaginationControls(totalPages) {
   }
 
   navContainer.innerHTML = `
-    <button onclick="changePage(-1)" ${currentPage === 1 ? "disabled" : ""} style="padding: 10px 20px; background: #e5e7eb; border-radius: 8px; font-weight: bold; cursor: pointer;">Previous</button>
-    <span style="font-weight: bold;">Page ${currentPage} of ${totalPages || 1}</span>
-    <button onclick="changePage(1)" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""} style="padding: 10px 20px; background: #176b57; color: white; border-radius: 8px; font-weight: bold; cursor: pointer;">Next</button>
+    <button onclick="changePage(-1)" ${currentPage === 1 ? "disabled" : ""} style="padding: 10px 20px; background: #e5e7eb; border-radius: 8px; font-weight: bold; border:none; cursor: pointer;">Previous</button>
+    <span style="font-weight: bold; color:#176b57;">Page ${currentPage} of ${totalPages || 1}</span>
+    <button onclick="changePage(1)" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""} style="padding: 10px 20px; background: #176b57; color: white; border-radius: 8px; font-weight: bold; border:none; cursor: pointer;">Next</button>
   `;
 }
 
@@ -150,16 +153,22 @@ window.changePage = function(direction) {
   window.scrollTo({ top: document.getElementById("products").offsetTop, behavior: 'smooth' });
 };
 
+// Map navigation categories dynamically to match ChatGPT UI elements
 document.querySelectorAll(".category").forEach(btn => {
   btn.addEventListener("click", (e) => {
     document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
     e.currentTarget.classList.add("active");
-    activeCategory = e.currentTarget.getAttribute("data-category");
+    
+    let rawCategory = e.currentTarget.getAttribute("data-category");
+    activeCategory = rawCategory;
     currentPage = 1;
     
-    if (activeCategory === "Shoes") activeCategory = "Sport Stuffs";
-    if (activeCategory === "Home") activeCategory = "House Materials";
-    if (activeCategory === "Accessories") activeCategory = "School Stuffs";
+    // Remap data-category names to matching loops
+    if (rawCategory === "Electronics") activeCategory = "Gadgets";
+    if (rawCategory === "Fashion") activeCategory = "Fashion";
+    if (rawCategory === "Shoes") activeCategory = "Sport Stuffs";
+    if (rawCategory === "Accessories") activeCategory = "School Stuffs";
+    if (rawCategory === "Home") activeCategory = "House Materials";
     
     renderStore();
   });
