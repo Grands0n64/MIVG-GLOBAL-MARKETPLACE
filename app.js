@@ -59,7 +59,52 @@ const products=[
 {image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=900&q=85",id:56,name:"NIVEA Dry Impact Roll-on 3-Pack",category:"Everyday",price:4260,emoji:"🧴",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
 {image:"https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=85",id:57,name:"Rechargeable Hair Clippers",category:"Everyday",price:2720,emoji:"✂️",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"},
 {image:"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=900&q=85",id:58,name:"LED Strip Lights 5 Metres",category:"Home",price:4860,emoji:"💡",tag:"Jumia price snapshot",note:"Price seen on Jumia Nigeria · confirm current listing"}
+
 ];
+// Build a broad 1,000-item marketplace catalogue across everyday shopping categories.
+const catalogueGroups = [
+{category:"Electronics",emoji:"📱",base:12000,step:18500,items:["Android Smartphone","Feature Phone","USB-C Fast Charger","Wireless Earbuds","Bluetooth Headphones","Power Bank","USB Flash Drive","Memory Card","Phone Case","Screen Protector","Bluetooth Speaker","Wireless Mouse","Keyboard and Mouse Combo","Webcam","Ring Light","USB Hub","HDMI Cable","Laptop Charger","Laptop Sleeve","External SSD","Portable Hard Drive","Wi-Fi Router","Smart Watch","Phone Tripod","Lavalier Microphone","Gaming Controller","Rechargeable Torch","Extension Socket","Surge Protector","Mini Projector"]},
+{category:"Fashion",emoji:"👕",base:2500,step:3200,items:["Men's Cotton T-Shirt","Women's Polo T-Shirt","Casual Shirt","Long Sleeve Shirt","Jeans Trousers","Chinos Trousers","Joggers","Hoodie","Lightweight Jacket","Summer Dress","Casual Gown","Leggings","Sports Shorts","Underwear Pack","Ankle Socks Pack","Baseball Cap","Bucket Hat","School Uniform Shirt","Children's T-Shirt","Baby Clothing Set","Traditional Shirt","Two-Piece Outfit","Cardigan","Sweatshirt","Polo Shirt"]},
+{category:"Shoes",emoji:"👟",base:3500,step:2600,items:["Men's Casual Sneakers","Women's Sneakers","Running Shoes","Football Boots","Canvas Shoes","Slip-on Loafers","Leather Office Shoes","Flat Sandals","Women's Flat Slippers","Men's Slides","Children's School Shoes","Kids' Sandals","Hiking Boots","Fashion Trainers","House Slippers","Sports Sandals","Ankle Boots","High-top Sneakers","Beach Flip-flops","Work Safety Shoes"]},
+{category:"Accessories",emoji:"👜",base:1800,step:2100,items:["Women's Handbag","Crossbody Bag","Backpack","Laptop Backpack","Travel Duffel Bag","Wallet","Card Holder","Leather Belt","Fashion Wristwatch","Smart Watch Strap","Fashion Necklace","Stud Earrings","Bracelet Set","Sunglasses","Reading Glasses","Hair Bonnet","Hair Clips Set","Jewellery Box","Travel Pouch","Key Holder","Makeup Bag","School Backpack","Gym Bag","Waist Bag","Tote Bag"]},
+{category:"Home",emoji:"🏠",base:2500,step:12000,items:["Electric Kettle","Electric Iron","Standing Fan","Rechargeable Fan","Table Fan","Blender","Air Fryer","Microwave Oven","Gas Cooker","Cooking Pot Set","Non-stick Frying Pan","Food Flask","Water Bottle","Storage Container Set","Laundry Basket","Bedsheet Set","Pillow Pair","Duvet Set","Bath Towel","Door Mat","LED Bulb Pack","Extension Cable","Rechargeable Lamp","Wall Clock","Plastic Chair","Folding Table","Shoe Rack","Clothes Hanger Set","Waste Bin","Cleaning Mop","Broom and Dustpan","Water Dispenser","Chest Freezer","Washing Machine","Portable Power Station","Solar Panel Kit","Home Generator","Rechargeable Torch","Kitchen Knife Set","Dish Drying Rack"]},
+{category:"Books",emoji:"📚",base:1200,step:950,items:["English Grammar Workbook","Mathematics Textbook","Basic Science Workbook","Computer Studies Guide","Business Studies Textbook","Exam Preparation Guide","Children's Storybook","African Short Stories","Personal Finance Guide","Entrepreneurship Handbook","Web Development Beginner Guide","Computer Programming Workbook","English Vocabulary Builder","Dictionary","Motivational Book","Biology Study Guide","Chemistry Study Guide","Physics Study Guide","History Textbook","Geography Workbook"]},
+{category:"Everyday",emoji:"🧴",base:800,step:1300,items:["Bathing Soap Pack","Toothpaste Pack","Toothbrush Set","Body Lotion","Roll-on Deodorant","Shampoo Bottle","Hair Conditioner","Laundry Detergent","Dishwashing Liquid","Tissue Paper Pack","Hand Sanitizer","Reusable Shopping Bags","Food Storage Bags","Reusable Water Bottle","Lunch Box","Thermal Flask","Clothes Pegs Set","Sewing Kit","Rechargeable Hair Clippers","Comb and Brush Set","First Aid Kit","Mosquito Net","LED Emergency Light","Umbrella","Raincoat","Travel Neck Pillow","Reusable Face Towels","Baby Wipes Pack","Baby Feeding Bottle","Thermal Food Jar"]},
+{category:"Sport",emoji:"⚽",base:2500,step:3400,items:["Football Jersey","Football Socks","Training Bibs Set","Football","Football Pump","Shin Guards","Goalkeeper Gloves","Football Boots","Basketball","Basketball Jersey","Skipping Rope","Resistance Bands","Yoga Mat","Gym Gloves","Sports Water Bottle","Running Waist Bag","Tennis Racket","Badminton Set","Sports Shorts","Training Tracksuit","Gym Duffel Bag","Whistle Set","Sports Cap","Ankle Support Brace","Exercise Mat"]},
+{category:"Groceries",emoji:"🛒",base:900,step:1500,items:["Rice 5kg","Beans 2kg","Garri 2kg","Semolina 2kg","Pasta Pack","Instant Noodles Carton","Vegetable Oil 1L","Palm Oil 1L","Tomato Paste Pack","Breakfast Cereal","Oats Pack","Milk Powder Pack","Tea Bags Pack","Sugar 1kg","Salt Pack","Seasoning Cubes Pack","Peanut Butter Jar","Groundnut Pack","Biscuits Carton","Bottled Water Pack","Fruit Juice Pack","Corn Flakes Pack","Spaghetti Carton","Honey Bottle","Cocoa Beverage Pack"]},
+{category:"Kids",emoji:"🧸",base:1800,step:2600,items:["Teddy Bear","Plush Toy","Building Blocks Set","Toy Car Set","Doll with Accessories","Baby Rattle Set","Educational Puzzle","Colouring Book Set","Crayons Pack","School Pencil Set","School Exercise Books","School Eraser Pack","School Ruler Set","Lunch Bag for Kids","Kids Water Bottle","Baby Blanket","Baby Diaper Bag","Baby Bath Towel","Children's Story Cards","Toy Kitchen Set","Remote Control Car","Stuffed Animal Toy","Alphabet Learning Cards","School Socks Pack","Kids Rain Boots"]},
+{category:"Computing",emoji:"💻",base:4500,step:45000,items:["Laptop Computer","Refurbished Business Laptop","Laptop RAM Module","Laptop SSD","Laptop Stand","Laptop Cooling Pad","Wireless Keyboard","Mechanical Keyboard","Gaming Mouse","Mouse Pad","Monitor Stand","24-inch Monitor","Printer Ink Cartridge","Wireless Printer","USB-C Docking Station","Ethernet Adapter","Webcam Cover","Laptop Privacy Screen","Desktop Speakers","UPS Backup Unit","Graphics Tablet","Drawing Pen Tablet","Laptop Battery","Laptop Screen","Computer Cleaning Kit"]}
+];
+const catalogueImages = {
+Electronics:"https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=900&q=85",
+Fashion:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",
+Shoes:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",
+Accessories:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",
+Home:"https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=85",
+Books:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=85",
+Everyday:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=900&q=85",
+Sport:"https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=85",
+Groceries:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85",
+Kids:"https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=900&q=85",
+Computing:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85"
+};
+const existingNames = new Set(products.map(p=>p.name.toLowerCase()));
+let catalogueRound = 1;
+while (products.length < 1000) {
+  for (const group of catalogueGroups) {
+    for (let i=0; i<group.items.length && products.length<1000; i++) {
+      const model = group.items[i];
+      const suffixes = ["Standard","Value Pack","Premium","Classic","Everyday","Deluxe","Portable","Family Pack","Compact","Multi-purpose","New Edition","Essential","Plus","XL","Travel Edition","Home Edition","School Edition","Sports Edition","Black","White","Blue","Green","Pink","Grey","Large","Medium","Small"];
+      const suffix = suffixes[(catalogueRound + i*3) % suffixes.length];
+      const name = model + " — " + suffix + (catalogueRound > 1 ? " " + catalogueRound : "");
+      if (existingNames.has(name.toLowerCase())) continue;
+      existingNames.add(name.toLowerCase());
+      const price = Math.round((group.base + (((products.length * 7919) + i*1871 + catalogueRound*997) % (group.step*5))) / 100) * 100;
+      products.push({id:products.length+1,name,category:group.category,price,emoji:group.emoji,image:catalogueImages[group.category],tag:"Marketplace pick",note:"Product listing · confirm seller, availability and final price before purchase"});
+    }
+  }
+  catalogueRound++;
+}
 const money=n=>"₦"+Number(n).toLocaleString("en-NG");
 let activeCategory="All",searchTerm="",cart={};
 const $=s=>document.querySelector(s);
