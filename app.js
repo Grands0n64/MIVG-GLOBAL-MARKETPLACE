@@ -1,26 +1,52 @@
-// IVAVIK MARKETPLACE LTD - 505 PRODUCT GENERATOR AND PAGINATION SYSTEM
+// IVAVIK MARKETPLACE LTD - 505 HIGHLY SPECIFIC PRODUCT & IMAGE GRAPH MATCHING SYSTEM
 const categories = ["Food Stuffs", "Gadgets", "Sport Stuffs", "School Stuffs", "House Materials"];
 const brands = ["Ivavik Premium", "Dangote", "Golden Penny", "Samsung", "Oraimo", "Sony", "Nike", "Adidas", "Cway", "Scanfrost"];
 
 const itemTypes = {
-  "Food Stuffs": ["Bag of Rice (50kg)", "Carton of Indomie", "Gallon of Vegetable Oil", "Yam Tuber Tub", "Bag of Garri", "Pack of Spaghetti"],
+  "Food Stuffs": ["Bag of Rice (50kg)", "Carton of Indomie", "Gallon of Vegetable Oil", "Premium Semovita Pack", "Bag of Refined Sugar", "Pack of Spaghetti"],
   "Gadgets": ["Smart Phone 128GB", "Core i5 Slim Laptop", "Wireless Bluetooth Earbuds", "Fast Charging Power Bank", "43-inch Smart TV"],
   "Sport Stuffs": ["Leather Football", "Training Tracksuit", "Running Sneakers", "Gym Dumbbell Set", "Agility Training Cones"],
   "School Stuffs": ["Waterproof Backpack", "Hardcover Notebook Pack", "Mathematical Set", "Scientific Calculator", "Desk Organizer Box"],
   "House Materials": ["Rechargeable Standing Fan", "Electric Blender", "LED Energy Saving Bulb", "Smart Door Lock", "Microwave Oven"]
 };
 
-const imagePool = {
-  "Food Stuffs": "https://unsplash.com",
-  "Gadgets": "https://unsplash.com",
-  "Sport Stuffs": "https://unsplash.com",
-  "School Stuffs": "https://unsplash.com",
-  "House Materials": "https://unsplash.com"
+// DIRECT IMAGE DICTIONARY: Maps distinct, recognizable imagery to item names
+const specificImages = {
+  "Bag of Rice (50kg)": "https://unsplash.com",
+  "Carton of Indomie": "https://unsplash.com",
+  "Gallon of Vegetable Oil": "https://unsplash.com",
+  "Premium Semovita Pack": "https://supermart.ng",
+  "Bag of Refined Sugar": "https://dangote.com",
+  "Pack of Spaghetti": "https://unsplash.com",
+  
+  "Smart Phone 128GB": "https://unsplash.com",
+  "Core i5 Slim Laptop": "https://unsplash.com",
+  "Wireless Bluetooth Earbuds": "https://unsplash.com",
+  "Fast Charging Power Bank": "https://unsplash.com",
+  "43-inch Smart TV": "https://unsplash.com",
+  
+  "Leather Football": "https://unsplash.com",
+  "Training Tracksuit": "https://unsplash.com",
+  "Running Sneakers": "https://unsplash.com",
+  "Gym Dumbbell Set": "https://unsplash.com",
+  "Agility Training Cones": "https://unsplash.com",
+  
+  "Waterproof Backpack": "https://unsplash.com",
+  "Hardcover Notebook Pack": "https://unsplash.com",
+  "Mathematical Set": "https://unsplash.com",
+  "Scientific Calculator": "https://unsplash.com",
+  "Desk Organizer Box": "https://unsplash.com",
+  
+  "Rechargeable Standing Fan": "https://unsplash.com",
+  "Electric Blender": "https://unsplash.com",
+  "LED Energy Saving Bulb": "https://unsplash.com",
+  "Smart Door Lock": "https://unsplash.com",
+  "Microwave Oven": "https://unsplash.com"
 };
 
 const products = [];
 
-// Automatically generate 505 structured goods
+// Construct the 505 array nodes via contextual parameters
 for (let i = 1; i <= 505; i++) {
   const selectedCat = categories[i % categories.length];
   const brand = brands[i % brands.length];
@@ -31,20 +57,23 @@ for (let i = 1; i <= 505; i++) {
   
   let basePrice = 2500 + (i * 750);
   if (selectedCat === "Gadgets") basePrice += 85000;
-  if (selectedCat === "Food Stuffs" && type.includes("Rice")) basePrice += 60000;
+  if (selectedCat === "Food Stuffs" && type.includes("Rice")) basePrice += 65000;
   
   const finalPrice = Math.ceil(basePrice / 500) * 500;
+
+  // Exact type token matching criteria logic mapping
+  const chosenImage = specificImages[type] || "https://unsplash.com";
 
   products.push({
     id: i,
     name: productName,
     category: selectedCat,
     price: finalPrice,
-    img: imagePool[selectedCat]
+    img: chosenImage
   });
 }
 
-// STATE AND DISPLAY MANAGEMENT
+// MANAGEMENT DRAWER & PAGINATION FUNCTIONS
 let activeCategory = "All";
 let currentPage = 1;
 const itemsPerPage = 12;
@@ -54,38 +83,34 @@ function renderStore() {
   if (!grid) return;
   grid.innerHTML = "";
 
-  // Filter items based on selected category tab
   let filtered = products;
   if (activeCategory !== "All") {
     filtered = products.filter(p => p.category === activeCategory);
   }
 
-  // Calculate Pagination splits
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleItems = filtered.slice(startIndex, endIndex);
 
-  // Generate ChatGPT style semantic HTML article structures
   visibleItems.forEach(product => {
     const card = document.createElement("article");
     card.className = "product-card";
     card.innerHTML = `
       <div class="product-image">
-        <img src="${product.img}" alt="${product.name}">
+        <img src="${product.img}" alt="${product.name}" style="width:100%; height:180px; object-fit:cover;">
       </div>
       <div class="product-info">
         <span class="product-category">${product.category}</span>
         <h3>${product.name}</h3>
         <div class="product-price">₦${product.price.toLocaleString()}</div>
-        <div class="product-note">Premium stock confirmation ready</div>
+        <div class="product-note">Stock availability confirmed</div>
         <button class="add-button" type="button" onclick="handleAddToCart(${product.id})">Add to Cart</button>
       </div>
     `;
     grid.appendChild(card);
   });
 
-  // Render or update navigation buttons dynamically below the grid
   updatePaginationControls(totalPages);
 }
 
@@ -109,7 +134,6 @@ function updatePaginationControls(totalPages) {
   `;
 }
 
-// APP LOGIC TRIGGERS
 let cartCount = 0;
 window.handleAddToCart = function(id) {
   cartCount++;
@@ -120,10 +144,9 @@ window.handleAddToCart = function(id) {
 window.changePage = function(direction) {
   currentPage += direction;
   renderStore();
-  window.scrollTo({ top: document.getElementById("products").offsetTop, behavior: "smooth" });
+  window.scrollTo({ top: document.getElementById("products").offsetTop, behavior: 'smooth' });
 };
 
-// Map navigation click listeners onto ChatGPT buttons
 document.querySelectorAll(".category").forEach(btn => {
   btn.addEventListener("click", (e) => {
     document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
@@ -131,7 +154,6 @@ document.querySelectorAll(".category").forEach(btn => {
     activeCategory = e.currentTarget.getAttribute("data-category");
     currentPage = 1;
     
-    // Convert short tag text for filtering matching criteria
     if (activeCategory === "Shoes") activeCategory = "Sport Stuffs";
     if (activeCategory === "Home") activeCategory = "House Materials";
     if (activeCategory === "Accessories") activeCategory = "School Stuffs";
