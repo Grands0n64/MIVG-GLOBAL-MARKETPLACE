@@ -115,10 +115,6 @@ async function loadUsdCatalogue(){
     seen.add(name.toLowerCase());const price=Math.round(item.usd*FX_NGN_PER_USD/100)*100;
     products.push({id:nextId++,name,category:item.category,price,usdPrice:item.usd,emoji:emojiMap[item.category]||"🛍️",image,tag:"USD converted",note:"US$"+item.usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: "+item.source+"; not a Jumia price."});
   }
-  const target=550;
-  const extra=products.length<target?target-products.length:0;
-  const available=products.slice(58);
-  for(let i=0;i<extra&&available.length;i++){const source=available[i%available.length];const variation=Math.floor(i/available.length)+1;const copy=Object.assign({},source,{id:nextId++,name:source.name+" — Option "+variation,tag:"USD converted · variant",note:source.note+" This is a catalogue variant; check exact variant availability."});products.push(copy);}
   renderProducts();
   console.info("MIVG catalogue count:",products.length,"unique source products:",seen.size,"imported records:",records.length);
   if(products.length<500)showNotice("Catalogue sources incomplete","Only "+products.length+" listings loaded. Some product sources may be unavailable on this connection.");
