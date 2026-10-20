@@ -92,23 +92,26 @@ $("#year").textContent=new Date().getFullYear();
 // This is a reference conversion, not a live FX feed or a Jumia price.
 async function loadUsdCatalogue(){
   const FX_NGN_PER_USD=1331.11;
-  const categoryMap={"beauty":"Everyday","fragrances":"Everyday","furniture":"Home","groceries":"Groceries","home-decoration":"Home","kitchen-accessories":"Home","laptops":"Computing","mens-shirts":"Fashion","mens-shoes":"Shoes","mens-watches":"Accessories","mobile-accessories":"Electronics","motorcycle":"Everyday","skin-care":"Everyday","smartphones":"Electronics","sports-accessories":"Sport","sunglasses":"Accessories","tablets":"Electronics","tops":"Fashion","vehicle":"Everyday","womens-bags":"Accessories","womens-dresses":"Fashion","womens-jewellery":"Accessories","womens-shoes":"Shoes","womens-watches":"Accessories"};
   const emojiMap={"Electronics":"📱","Computing":"💻","Shoes":"👟","Fashion":"👕","Accessories":"👜","Home":"🏠","Everyday":"🧴","Sport":"⚽","Groceries":"🛒","Kids":"🧸"};
-  try{
-    const response=await fetch("https://dummyjson.com/products?limit=0");
-    if(!response.ok) throw new Error("Product source unavailable");
-    const data=await response.json();
-    const imported=(data.products||[]).map((item,index)=>{
-      const usd=Number(item.price)||0;
-      const category=categoryMap[item.category]||"Everyday";
-      return {id:1000+index,name:item.title,category,price:Math.round(usd*FX_NGN_PER_USD/100)*100,usdPrice:usd,emoji:emojiMap[category]||"🛍️",image:item.thumbnail||(item.images||[])[0]||"",tag:"USD converted",note:"US$"+usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: DummyJSON, not Jumia."};
-    });
-    const known=new Set(products.map(p=>p.name.toLowerCase()));
-    for(const item of imported){if(!known.has(item.name.toLowerCase()))products.push(item);}
-    renderProducts();
-  }catch(error){
-    console.warn("USD catalogue could not be loaded",error);
-    showNotice("Some products could not load","The additional product catalogue needs an internet connection. Please refresh and try again.");
+  const mapDummy={"beauty":"Everyday","fragrances":"Everyday","furniture":"Home","groceries":"Groceries","home-decoration":"Home","kitchen-accessories":"Home","laptops":"Computing","mens-shirts":"Fashion","mens-shoes":"Shoes","mens-watches":"Accessories","mobile-accessories":"Electronics","motorcycle":"Everyday","skin-care":"Everyday","smartphones":"Electronics","sports-accessories":"Sport","sunglasses":"Accessories","tablets":"Electronics","tops":"Fashion","vehicle":"Everyday","womens-bags":"Accessories","womens-dresses":"Fashion","womens-jewellery":"Accessories","womens-shoes":"Shoes","womens-watches":"Accessories"};
+  const mapPlatzi={"Clothes":"Fashion","Electronics":"Electronics","Furniture":"Home","Shoes":"Shoes","Miscellaneous":"Everyday"};
+  const requests=[
+    fetch("https://dummyjson.com/products?limit=0").then(async r=>{if(!r.ok)throw Error("DummyJSON unavailable");const j=await r.json();return (j.products||[]).map(x=>({name:x.title,category:mapDummy[x.category]||"Everyday",usd:Number(x.price)||0,image:x.thumbnail||(x.images||[])[0]||"",source:"DummyJSON"}));}),
+    fetch("https://api.escuelajs.co/api/v1/products?offset=0&limit=250").then(async r=>{if(!r.ok)throw Error("EscuelaJS unavailable");const j=await r.json();return (Array.isArray(j)?j:[]).map(x=>({name:x.title,category:mapPlatzi[x.category&&x.category.name]||"Everyday",usd:Number(x.price)||0,image:(x.images||[]).find(u=>typeof u==="string"&&u.startsWith("http")&&!u.includes("placeimg.com"))||"",source:"EscuelaJS"}));}),
+    ...["womens-fashion","home-decor","shoes"].map(slug=>fetch("https://scenesku.com/api/v1/public-packs/"+slug).then(async r=>{if(!r.ok)throw Error("SceneSKU unavailable");const j=await r.json();return (j.data||[]).filter(x=>x.state==="completed"&&x.product_data).map(x=>({name:x.product_data.product_title,category:slug==="shoes"?"Shoes":slug==="home-decor"?"Home":"Fashion",usd:Number(x.product_data.price)||0,image:x.images?.[0]?.image_url||"",source:"SceneSKU"}));}))
+  ];
+  const results=await Promise.allSettled(requests);
+  const imported=results.filter(x=>x.status==="fulfilled").flatMap(x=>x.value);
+  const seen=new Set(products.map(p=>p.name.trim().toLowerCase()));
+  let nextId=Math.max(999,...products.map(p=>Number(p.id)||0))+1;
+  for(const item of imported){
+    const name=String(item.name||"").trim();
+    if(!name||seen.has(name.toLowerCase())||!item.image||!/^https:\/\//i.test(item.image)||!(item.usd>0))continue;
+    seen.add(name.toLowerCase());
+    const price=Math.round(item.usd*FX_NGN_PER_USD/100)*100;
+    products.push({id:nextId++,name,category:item.category,price,usdPrice:item.usd,emoji:emojiMap[item.category]||"🛍️",image:item.image,tag:"USD converted",note:"US$"+item.usd.toFixed(2)+" × ₦"+FX_NGN_PER_USD.toLocaleString("en-NG")+" reference rate. Source: "+item.source+"; not a Jumia price."});
   }
+  renderProducts();
+  console.info("MIVG catalogue loaded:",products.length,"unique entries; imported",imported.length,"records before validation.");
 }
 renderProducts();renderCart();loadUsdCatalogue();
