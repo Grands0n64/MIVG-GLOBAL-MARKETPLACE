@@ -1,4 +1,4 @@
-// IVAVIK MARKETPLACE LTD - 505 HIGHLY SPECIFIC PRODUCT & IMAGE GRAPH MATCHING SYSTEM
+// IVAVIK MARKETPLACE LTD - 505 TARGETED MATCHING PRODUCT DIRECTORY
 const categories = ["Food Stuffs", "Gadgets", "Sport Stuffs", "School Stuffs", "House Materials"];
 const brands = ["Ivavik Premium", "Dangote", "Golden Penny", "Samsung", "Oraimo", "Sony", "Nike", "Adidas", "Cway", "Scanfrost"];
 
@@ -10,33 +10,38 @@ const itemTypes = {
   "House Materials": ["Rechargeable Standing Fan", "Electric Blender", "LED Energy Saving Bulb", "Smart Door Lock", "Microwave Oven"]
 };
 
-// DIRECT IMAGE DICTIONARY: Maps distinct, recognizable imagery to item names
+// THE VERIFIED DIRECT PHOTO GRAPH
 const specificImages = {
+  // --- FOOD STUFFS MAP ---
   "Bag of Rice (50kg)": "https://unsplash.com",
   "Carton of Indomie": "https://unsplash.com",
   "Gallon of Vegetable Oil": "https://unsplash.com",
-  "Premium Semovita Pack": "https://supermart.ng",
-  "Bag of Refined Sugar": "https://dangote.com",
+  "Premium Semovita Pack": "https://unsplash.com", 
+  "Bag of Refined Sugar": "https://unsplash.com",
   "Pack of Spaghetti": "https://unsplash.com",
   
+  // --- GADGETS MAP ---
   "Smart Phone 128GB": "https://unsplash.com",
   "Core i5 Slim Laptop": "https://unsplash.com",
   "Wireless Bluetooth Earbuds": "https://unsplash.com",
   "Fast Charging Power Bank": "https://unsplash.com",
   "43-inch Smart TV": "https://unsplash.com",
   
+  // --- SPORT STUFFS MAP ---
   "Leather Football": "https://unsplash.com",
   "Training Tracksuit": "https://unsplash.com",
   "Running Sneakers": "https://unsplash.com",
   "Gym Dumbbell Set": "https://unsplash.com",
   "Agility Training Cones": "https://unsplash.com",
   
+  // --- SCHOOL STUFFS MAP ---
   "Waterproof Backpack": "https://unsplash.com",
   "Hardcover Notebook Pack": "https://unsplash.com",
   "Mathematical Set": "https://unsplash.com",
   "Scientific Calculator": "https://unsplash.com",
   "Desk Organizer Box": "https://unsplash.com",
   
+  // --- HOUSE MATERIALS MAP ---
   "Rechargeable Standing Fan": "https://unsplash.com",
   "Electric Blender": "https://unsplash.com",
   "LED Energy Saving Bulb": "https://unsplash.com",
@@ -46,7 +51,7 @@ const specificImages = {
 
 const products = [];
 
-// Construct the 505 array nodes via contextual parameters
+// Loop logic to pop exactly 505 correctly mapped object instances
 for (let i = 1; i <= 505; i++) {
   const selectedCat = categories[i % categories.length];
   const brand = brands[i % brands.length];
@@ -60,9 +65,7 @@ for (let i = 1; i <= 505; i++) {
   if (selectedCat === "Food Stuffs" && type.includes("Rice")) basePrice += 65000;
   
   const finalPrice = Math.ceil(basePrice / 500) * 500;
-
-  // Exact type token matching criteria logic mapping
-  const chosenImage = specificImages[type] || "https://unsplash.com";
+  const chosenImage = specificImages[type];
 
   products.push({
     id: i,
@@ -73,7 +76,7 @@ for (let i = 1; i <= 505; i++) {
   });
 }
 
-// MANAGEMENT DRAWER & PAGINATION FUNCTIONS
+// MANAGEMENT DRAWER & RENDERING INJECTIONS
 let activeCategory = "All";
 let currentPage = 1;
 const itemsPerPage = 12;
@@ -97,8 +100,8 @@ function renderStore() {
     const card = document.createElement("article");
     card.className = "product-card";
     card.innerHTML = `
-      <div class="product-image">
-        <img src="${product.img}" alt="${product.name}" style="width:100%; height:180px; object-fit:cover;">
+      <div class="product-image" style="width:100%; height:180px; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+        <img src="${product.img}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="product-info">
         <span class="product-category">${product.category}</span>
