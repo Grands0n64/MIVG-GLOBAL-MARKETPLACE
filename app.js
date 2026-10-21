@@ -79,6 +79,59 @@ for (let i = 1; i <= 505; i++) {
   });
 }
 
+
+const suppliedIphones = [
+  ["iPhone X","256GB",220000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp"],
+  ["iPhone XR","64GB",210000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp"],
+  ["iPhone XR","128GB",245000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp"],
+  ["iPhone XS Max","256GB",290000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-x/thumbnail.webp"],
+  ["iPhone 11","64GB",260000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 11","128GB",295000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 11 Pro","64GB",320000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 11 Pro","256GB",360000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 11 Pro Max","64GB",340000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 11 Pro Max","256GB",390000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 11 Pro Max","512GB",420000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Mini","64GB",260000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Mini","128GB",300000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12","64GB",300000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12","128GB",335000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Pro","128GB",410000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Pro","256GB",445000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Pro","512GB",480000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Pro Max","128GB",490000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 12 Pro Max","256GB",520000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13 Mini","128GB",370000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13 Mini","256GB",450000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13","128GB",440000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13","256GB",480000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13 Pro","128GB",530000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13 Pro","256GB",580000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13 Pro Max","128GB",600000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 13 Pro Max","256GB",550000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 14","128GB",510000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 14","256GB",580000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 14 Pro","128GB",680000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 14 Pro","256GB",720000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 14 Pro Max","128GB",730000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 14 Pro Max","256GB",780000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 15","128GB",630000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 15","256GB",730000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 15 Pro","128GB",830000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 15 Pro","256GB",880000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 15 Pro Max","256GB",980000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 15 Pro Max","512GB",950000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 16","128GB",880000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"],
+  ["iPhone 16","256GB",970000,"https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"]
+];
+suppliedIphones.forEach((entry, index) => products.push({
+  id: 1000 + index,
+  name: entry[0] + " " + entry[1],
+  category: "Gadgets",
+  price: entry[2],
+  img: entry[3]
+}));
+
 // LAYOUT PACKAGING AND INTERACTION RENDERING
 let activeCategory = "All";
 let currentPage = 1;
