@@ -1,139 +1,46 @@
-// MIVG Global Marketplace — cleaned starter catalogue.
-// Removed fabricated bulk inventory, food, and school listings.
-// Only list model-specific products with a matching product photo.
+// MIVG Global Marketplace — seller-supplied used UK electronics catalogue.
+// Prices are copied from the seller's list. The iPhone 13 Pro Max 128GB price
+// was not supplied, so it is displayed as "Price to confirm" rather than guessed.
 const IPHONE_13_PRO_IMAGE = "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-blue-select?wid=940&hei=1112&fmt=png-alpha";
-const products = [
-  { id: 1, name: "iPhone 13 Pro 128GB", category: "Electronics", price: 530000, img: IPHONE_13_PRO_IMAGE, note: "Stock and price must be confirmed" },
-  { id: 2, name: "iPhone 13 Pro 256GB", category: "Electronics", price: 580000, img: IPHONE_13_PRO_IMAGE, note: "Stock and price must be confirmed" }
-];
-let activeCategory = "All";
-let currentPage = 1;
-const itemsPerPage = 12;
-let cart = [];
-
-function renderStore() {
-  const grid = document.getElementById("product-grid");
-  if (!grid) return;
-  grid.innerHTML = "";
-  const query = (document.getElementById("search-input")?.value || "").trim().toLowerCase();
-  let filtered = products.filter(p =>
-    (activeCategory === "All" || p.category === activeCategory) &&
-    (!query || p.name.toLowerCase().includes(query))
-  );
-  const sort = document.getElementById("sort-select")?.value;
-  if (sort === "low") filtered.sort((a,b) => a.price-b.price);
-  if (sort === "high") filtered.sort((a,b) => b.price-a.price);
-  const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
-  currentPage = Math.min(currentPage, totalPages);
-  const visible = filtered.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage);
-  visible.forEach(product => {
-    const card = document.createElement("article");
-    card.className = "product-card";
-    const imageWrap = document.createElement("div");
-    imageWrap.className = "product-image";
-    const img = document.createElement("img");
-    img.src = product.img;
-    img.alt = product.name + " product photo";
-    img.loading = "lazy";
-    img.onerror = () => { imageWrap.innerHTML = '<p class="muted">Product image temporarily unavailable</p>'; };
-    imageWrap.appendChild(img);
-    const info = document.createElement("div");
-    info.className = "product-info";
-    info.innerHTML = '<span class="product-category"></span><h3></h3><div class="product-price"></div><div class="product-note"></div><button class="add-button" type="button">Add to Cart</button>';
-    info.querySelector(".product-category").textContent = product.category;
-    info.querySelector("h3").textContent = product.name;
-    info.querySelector(".product-price").textContent = "₦" + product.price.toLocaleString("en-NG");
-    info.querySelector(".product-note").textContent = product.note;
-    info.querySelector("button").addEventListener("click", () => addToCart(product.id));
-    card.append(imageWrap, info);
-    grid.appendChild(card);
-  });
-  const label = document.getElementById("active-filter");
-  if (label) label.textContent = query ? 'Search results for "' + query + '"' : (activeCategory === "All" ? "Showing all categories" : "Showing " + activeCategory);
-  updatePaginationControls(totalPages);
+const products = [{"id":1,"name":"iPhone 7 32GB","category":"iPhone","price":70000,"img":"","note":"UK used • confirm stock before purchase"},{"id":2,"name":"iPhone XR 64GB","category":"iPhone","price":185000,"img":"","note":"UK used • confirm stock before purchase"},{"id":3,"name":"iPhone 11 64GB","category":"iPhone","price":220000,"img":"","note":"UK used • confirm stock before purchase"},{"id":4,"name":"iPhone 11 128GB","category":"iPhone","price":260000,"img":"","note":"UK used • confirm stock before purchase"},{"id":5,"name":"iPhone 11 Pro 64GB","category":"iPhone","price":270000,"img":"","note":"UK used • confirm stock before purchase"},{"id":6,"name":"iPhone 11 Pro 256GB","category":"iPhone","price":310000,"img":"","note":"UK used • confirm stock before purchase"},{"id":7,"name":"iPhone 12 64GB","category":"iPhone","price":260000,"img":"","note":"UK used • confirm stock before purchase"},{"id":8,"name":"iPhone 12 128GB","category":"iPhone","price":300000,"img":"","note":"UK used • confirm stock before purchase"},{"id":9,"name":"iPhone 12 Pro 128GB","category":"iPhone","price":365000,"img":"","note":"UK used • confirm stock before purchase"},{"id":10,"name":"iPhone 12 Pro 256GB","category":"iPhone","price":410000,"img":"","note":"UK used • confirm stock before purchase"},{"id":11,"name":"iPhone 12 Pro Max 128GB","category":"iPhone","price":435000,"img":"","note":"UK used • confirm stock before purchase"},{"id":12,"name":"iPhone 13 256GB","category":"iPhone","price":420000,"img":"","note":"UK used • confirm stock before purchase"},{"id":13,"name":"iPhone 13 Pro 128GB","category":"iPhone","price":510000,"img":IPHONE_13_PRO_IMAGE,"note":"UK used • confirm stock before purchase"},{"id":14,"name":"iPhone 13 Pro 256GB","category":"iPhone","price":530000,"img":IPHONE_13_PRO_IMAGE,"note":"UK used • confirm stock before purchase"},{"id":15,"name":"iPhone 13 Pro Max 128GB","category":"iPhone","price":null,"img":"","note":"UK used • confirm stock before purchase"},{"id":16,"name":"iPhone 14 Pro Max 256GB","category":"iPhone","price":815000,"img":"","note":"UK used • confirm stock before purchase"},{"id":17,"name":"iPhone 14 Pro 512GB","category":"iPhone","price":695000,"img":"","note":"UK used • confirm stock before purchase"},{"id":18,"name":"iPhone 15 Pro 256GB","category":"iPhone","price":865000,"img":"","note":"UK used • confirm stock before purchase"},{"id":19,"name":"iPhone 15 Pro 512GB","category":"iPhone","price":890000,"img":"","note":"UK used • confirm stock before purchase"},{"id":20,"name":"iPhone 15 Pro Max 256GB","category":"iPhone","price":980000,"img":"","note":"UK used • confirm stock before purchase"},{"id":21,"name":"iPhone 15 Pro Max 512GB","category":"iPhone","price":1050000,"img":"","note":"UK used • confirm stock before purchase"},{"id":22,"name":"iPhone 16 128GB","category":"iPhone","price":870000,"img":"","note":"UK used • confirm stock before purchase"},{"id":23,"name":"iPhone 16 Pro 128GB","category":"iPhone","price":930000,"img":"","note":"UK used • confirm stock before purchase"},{"id":24,"name":"iPhone 16 Pro 256GB","category":"iPhone","price":1020000,"img":"","note":"UK used • confirm stock before purchase"},{"id":25,"name":"iPhone 16 Pro Max 256GB","category":"iPhone","price":1200000,"img":"","note":"UK used • confirm stock before purchase"},{"id":26,"name":"iPhone 14 Pro Max 256GB Boxed","category":"iPhone","price":800000,"img":"","note":"UK used • confirm stock before purchase"},{"id":27,"name":"iPhone 15 Pro Max 256GB Boxed","category":"iPhone","price":1050000,"img":"","note":"UK used • confirm stock before purchase"},{"id":28,"name":"Samsung A60 128GB","category":"Samsung","price":90000,"img":"","note":"UK used • confirm stock before purchase"},{"id":29,"name":"Samsung A9s 128GB","category":"Samsung","price":100000,"img":"","note":"UK used • confirm stock before purchase"},{"id":30,"name":"Samsung A22 128GB","category":"Samsung","price":125000,"img":"","note":"UK used • confirm stock before purchase"},{"id":31,"name":"Samsung A42 128GB","category":"Samsung","price":135000,"img":"","note":"UK used • confirm stock before purchase"},{"id":32,"name":"Samsung Note 20 128GB","category":"Samsung","price":185000,"img":"","note":"UK used • confirm stock before purchase"},{"id":33,"name":"Samsung S10e 128GB","category":"Samsung","price":165000,"img":"","note":"UK used • confirm stock before purchase"},{"id":34,"name":"Samsung S10 128GB","category":"Samsung","price":195000,"img":"","note":"UK used • confirm stock before purchase"},{"id":35,"name":"Samsung S21 Plus 128GB","category":"Samsung","price":245000,"img":"","note":"UK used • confirm stock before purchase"},{"id":36,"name":"Samsung S21 Ultra 128GB","category":"Samsung","price":350000,"img":"","note":"UK used • confirm stock before purchase"},{"id":37,"name":"Samsung S22 Ultra 256GB","category":"Samsung","price":470000,"img":"","note":"UK used • confirm stock before purchase"},{"id":38,"name":"Samsung Flip 3 128GB","category":"Samsung","price":240000,"img":"","note":"UK used • confirm stock before purchase"},{"id":39,"name":"Samsung Fold 5 256GB","category":"Samsung","price":700000,"img":"","note":"UK used • confirm stock before purchase"},{"id":40,"name":"Poco X5 128GB","category":"Android","price":155000,"img":"","note":"UK used • confirm stock before purchase"},{"id":41,"name":"Poco C65 128GB","category":"Android","price":145000,"img":"","note":"UK used • confirm stock before purchase"},{"id":42,"name":"Samsung Tab 4 Tablet","category":"Tablets","price":40000,"img":"","note":"UK used • confirm stock before purchase"},{"id":43,"name":"PlayStation 4 New","category":"Gaming","price":270000,"img":"","note":"UK used • confirm stock before purchase"},{"id":44,"name":"PlayStation 4","category":"Gaming","price":220000,"img":"","note":"UK used • confirm stock before purchase"},{"id":45,"name":"PlayStation 5 Slim","category":"Gaming","price":630000,"img":"","note":"UK used • confirm stock before purchase"},{"id":46,"name":"PlayStation 5 Fat","category":"Gaming","price":550000,"img":"","note":"UK used • confirm stock before purchase"}].map(p=>({...p, img:p.img || ""}));
+let activeCategory="All",currentPage=1,cart=[];
+const itemsPerPage=12;
+function renderStore(){
+ const grid=document.getElementById("product-grid");if(!grid)return;grid.innerHTML="";
+ const query=(document.getElementById("search-input")?.value||"").trim().toLowerCase();
+ let filtered=products.filter(p=>(activeCategory==="All"||p.category===activeCategory)&&(!query||p.name.toLowerCase().includes(query)));
+ const sort=document.getElementById("sort-select")?.value;
+ if(sort==="low")filtered.sort((a,b)=>(a.price??Infinity)-(b.price??Infinity));
+ if(sort==="high")filtered.sort((a,b)=>(b.price??-Infinity)-(a.price??-Infinity));
+ const pages=Math.max(1,Math.ceil(filtered.length/itemsPerPage));currentPage=Math.min(currentPage,pages);
+ filtered.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage).forEach(p=>{
+  const card=document.createElement("article");card.className="product-card";
+  const imageWrap=document.createElement("div");imageWrap.className="product-image";
+  if(p.img){const img=document.createElement("img");img.src=p.img;img.alt=p.name+" product photo";img.loading="lazy";img.onerror=()=>{imageWrap.innerHTML='<p class="muted">Matching model photo unavailable</p>';};imageWrap.appendChild(img);}
+  else imageWrap.innerHTML='<div style="min-height:190px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;background:#f1f5f9;color:#475569"><strong></strong><span style="font-size:12px">Exact-model photo to be added</span></div>',imageWrap.querySelector("strong").textContent=p.name;
+  const info=document.createElement("div");info.className="product-info";info.innerHTML='<span class="product-category"></span><h3></h3><div class="product-price"></div><div class="product-note"></div><button class="add-button" type="button">Add to Cart</button>';
+  info.querySelector(".product-category").textContent=p.category;info.querySelector("h3").textContent=p.name;
+  info.querySelector(".product-price").textContent=p.price==null?"Price to confirm":"₦"+p.price.toLocaleString("en-NG");
+  info.querySelector(".product-note").textContent=p.note;info.querySelector("button").addEventListener("click",()=>addToCart(p.id));
+  card.append(imageWrap,info);grid.appendChild(card);
+ });
+ const label=document.getElementById("active-filter");if(label)label.textContent=query?'Search results for "'+query+'"':"Showing "+(activeCategory==="All"?"all products":activeCategory);
+ updatePagination(pages);
 }
-function updatePaginationControls(totalPages) {
-  let nav = document.getElementById("pagination-container");
-  if (!nav) {
-    nav = document.createElement("div");
-    nav.id = "pagination-container";
-    nav.style.cssText = "display:flex;justify-content:center;align-items:center;gap:15px;margin-top:30px";
-    document.getElementById("product-grid")?.after(nav);
-  }
-  nav.innerHTML = "";
-  const prev = document.createElement("button");
-  prev.textContent = "Previous";
-  prev.disabled = currentPage <= 1;
-  prev.onclick = () => { currentPage--; renderStore(); };
-  const label = document.createElement("span");
-  label.textContent = "Page " + currentPage + " of " + totalPages;
-  const next = document.createElement("button");
-  next.textContent = "Next";
-  next.disabled = currentPage >= totalPages;
-  next.onclick = () => { currentPage++; renderStore(); };
-  [prev,label,next].forEach(el => nav.appendChild(el));
-}
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  if (!product) return;
-  cart.push(product);
-  document.getElementById("cart-count").textContent = String(cart.length);
-  renderCart();
-  document.getElementById("overlay")?.classList.add("open");
-  document.getElementById("cart-drawer")?.classList.add("open");
-}
-function renderCart() {
-  const items = document.getElementById("cart-items");
-  if (!items) return;
-  items.innerHTML = "";
-  cart.forEach((p, i) => {
-    const row = document.createElement("div");
-    row.className = "cart-item";
-    row.textContent = p.name + " — ₦" + p.price.toLocaleString("en-NG") + " ";
-    const remove = document.createElement("button");
-    remove.textContent = "Remove";
-    remove.onclick = () => { cart.splice(i,1); document.getElementById("cart-count").textContent=String(cart.length); renderCart(); };
-    row.appendChild(remove);
-    items.appendChild(row);
-  });
-  document.getElementById("cart-total").textContent = "₦" + cart.reduce((sum,p)=>sum+p.price,0).toLocaleString("en-NG");
-}
-document.querySelectorAll(".category").forEach(btn => btn.addEventListener("click", e => {
-  document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
-  e.currentTarget.classList.add("active");
-  const raw = e.currentTarget.dataset.category;
-  activeCategory = raw === "Electronics" ? "Electronics" : raw === "All" ? "All" : raw;
-  currentPage = 1;
-  renderStore();
-}));
-document.getElementById("search-form")?.addEventListener("submit", e => { e.preventDefault(); currentPage=1; renderStore(); });
-document.getElementById("search-input")?.addEventListener("input", () => { currentPage=1; renderStore(); });
-document.getElementById("sort-select")?.addEventListener("change", renderStore);
-const year = document.getElementById("year");
-if (year) year.textContent = new Date().getFullYear();
-document.getElementById("cart-open")?.addEventListener("click", () => {
-  document.getElementById("overlay")?.classList.add("open");
-  document.getElementById("cart-drawer")?.classList.add("open");
-});
-function closeDialogs() {
-  document.getElementById("overlay")?.classList.remove("open");
-  document.getElementById("cart-drawer")?.classList.remove("open");
-  document.getElementById("notice-modal")?.classList.remove("open");
-}
-document.getElementById("cart-close")?.addEventListener("click", closeDialogs);
-document.getElementById("overlay")?.addEventListener("click", closeDialogs);
-document.getElementById("notice-close")?.addEventListener("click", closeDialogs);
-document.getElementById("notice-ok")?.addEventListener("click", closeDialogs);
-document.getElementById("checkout-button")?.addEventListener("click", () => {
-  document.getElementById("notice-title").textContent = "Checkout is not enabled yet";
-  document.getElementById("notice-message").textContent = "Secure order and payment setup is still required.";
-  document.getElementById("notice-modal")?.classList.add("open");
-  document.getElementById("overlay")?.classList.add("open");
-});
-document.getElementById("seller-interest")?.addEventListener("click", () => {
-  document.getElementById("notice-title").textContent = "Seller registration";
-  document.getElementById("notice-message").textContent = "Seller onboarding is not enabled yet.";
-  document.getElementById("notice-modal")?.classList.add("open");
-  document.getElementById("overlay")?.classList.add("open");
-});
+function updatePagination(pages){let nav=document.getElementById("pagination-container");if(!nav){nav=document.createElement("div");nav.id="pagination-container";nav.style.cssText="display:flex;justify-content:center;align-items:center;gap:15px;margin-top:30px";document.getElementById("product-grid")?.after(nav);}nav.innerHTML="";
+ const prev=document.createElement("button");prev.textContent="Previous";prev.disabled=currentPage<=1;prev.onclick=()=>{currentPage--;renderStore();};
+ const label=document.createElement("span");label.textContent="Page "+currentPage+" of "+pages;
+ const next=document.createElement("button");next.textContent="Next";next.disabled=currentPage>=pages;next.onclick=()=>{currentPage++;renderStore();};[prev,label,next].forEach(e=>nav.appendChild(e));}
+function addToCart(id){const p=products.find(x=>x.id===id);if(!p)return;cart.push(p);document.getElementById("cart-count").textContent=String(cart.length);renderCart();document.getElementById("overlay")?.classList.add("open");document.getElementById("cart-drawer")?.classList.add("open");}
+function renderCart(){const el=document.getElementById("cart-items");if(!el)return;el.innerHTML="";cart.forEach((p,i)=>{const row=document.createElement("div");row.className="cart-item";row.textContent=p.name+" — "+(p.price==null?"Price to confirm":"₦"+p.price.toLocaleString("en-NG"))+" ";const b=document.createElement("button");b.textContent="Remove";b.onclick=()=>{cart.splice(i,1);document.getElementById("cart-count").textContent=String(cart.length);renderCart();};row.appendChild(b);el.appendChild(row);});document.getElementById("cart-total").textContent="₦"+cart.reduce((s,p)=>s+(p.price||0),0).toLocaleString("en-NG");}
+document.querySelectorAll(".category").forEach(btn=>btn.addEventListener("click",e=>{document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));e.currentTarget.classList.add("active");activeCategory=e.currentTarget.dataset.category;currentPage=1;renderStore();}));
+document.getElementById("search-form")?.addEventListener("submit",e=>{e.preventDefault();currentPage=1;renderStore();});
+document.getElementById("search-input")?.addEventListener("input",()=>{currentPage=1;renderStore();});
+document.getElementById("sort-select")?.addEventListener("change",renderStore);
+const year=document.getElementById("year");if(year)year.textContent=new Date().getFullYear();
+document.getElementById("cart-open")?.addEventListener("click",()=>{document.getElementById("overlay")?.classList.add("open");document.getElementById("cart-drawer")?.classList.add("open");});
+function closeDialogs(){document.getElementById("overlay")?.classList.remove("open");document.getElementById("cart-drawer")?.classList.remove("open");document.getElementById("notice-modal")?.classList.remove("open");}
+["cart-close","notice-close","notice-ok"].forEach(id=>document.getElementById(id)?.addEventListener("click",closeDialogs));document.getElementById("overlay")?.addEventListener("click",closeDialogs);
+document.getElementById("checkout-button")?.addEventListener("click",()=>{document.getElementById("notice-title").textContent="Checkout is not enabled yet";document.getElementById("notice-message").textContent="Secure order and payment setup is still required.";document.getElementById("notice-modal")?.classList.add("open");document.getElementById("overlay")?.classList.add("open");});
+document.getElementById("seller-interest")?.addEventListener("click",()=>{document.getElementById("notice-title").textContent="Seller registration";document.getElementById("notice-message").textContent="Seller onboarding is not enabled yet.";document.getElementById("notice-modal")?.classList.add("open");document.getElementById("overlay")?.classList.add("open");});
 renderStore();
